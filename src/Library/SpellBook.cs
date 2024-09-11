@@ -3,7 +3,7 @@ namespace Library;
 public class SpellBook
 {
     public string Nombre { get; set; }
-    public List<Spell> Hechizos;
+    public List<Spell> Hechizos { get; set; }
 
     public SpellBook(string nombre)
     {
