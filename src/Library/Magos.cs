@@ -4,68 +4,110 @@ namespace Library;
 
 public class Magos
 {
-    public string NombreMago
-    {
-        get { return nombremagoFinal;}
-        set
-        {
-            string simbolos="!#$%&/())=?'¿´´¨+[]_:;";
-            bool posible = false;
-            foreach (var letra in value)
-            {
-                foreach (var simbolo in simbolos)
-                {
-                    if (letra==simbolo)
-                    {
-                        posible = true;
-                        break;
-                    }
-                }
-            }
+    public string NombreMago { get; set; }
 
-            if (posible)
-            {
-                throw new ArgumentException("El nombre es incorrecto. No puede contener símbolos.");
-            }
-            else
-            {
-                nombremagoFinal=value;
-            } 
-        }
-    }
-
-    private string nombremagoFinal;
+   public SpellBook LibroHechizos { get; set; }
 
     public List<Item> ItemsMago { get; set; }
-    public double Vida { get; set; }
-    public List<Spell> Hechizos { get; set; }
-    public int DañoHecho { get; set; }
-    public int DañoAtaque { get; set; }
-    public int ValorDefensa { get; set; }
-    public void curar()
+    public int ValorVida { get; set; }
+    public int ValorAtaque { get; set; }
+
+    public void AgregarItem(Item item)
     {
-        double vidaCurable = (DañoHecho-(DañoHecho*(ValorDefensa/100)));
-        double VidaCurada = Vida + vidaCurable;
-        if (vidaCurable>Vida)
+        ItemsMago.Add(item);
+       
+    }
+    
+    public void QuitarItem(Item item)
+    {
+        ItemsMago.Remove(item);
+      
+    }
+    
+    public int calcularVidaTotal()
+    {
+        int VidaExtra = 0;
+        foreach (Item item in ItemsMago)
         {
-            Vida = Vida;
+            VidaExtra += item.ValorDefensa;
+        }
+        
+        return (VidaExtra + ValorVida);
+
+    }
+
+    public void AtacarMago(Magos mago)
+    {
+        int ataque = ValorAtaqueExtra();
+        if (ataque<mago.ValorVida)
+        {
+            mago.ValorVida = mago.ValorVida - ValorAtaque;
         }
         else
         {
-            Vida = VidaCurada;
+            Console.WriteLine("Se murio el personaje que has atacado");
         }
     }
+    public void AtacarElfo(Elfos elfos)
+    {
+        int ataque = ValorAtaqueExtra();
+        if (ataque<elfos.ValorVida)
+        {
+            elfos.ValorVida = elfos.ValorVida - ValorAtaque;
+        }
+        else
+        {
+            Console.WriteLine("Se murio el personaje que has atacado");
+        }
+    }
+    
+    public void AtacarElfo(Duendes duendes)
+    {
+        int ataque = ValorAtaqueExtra();
+        if (ataque<duendes.ValorVida)
+        {
+            duendes.ValorVida = duendes.ValorVida - ValorAtaque;
+        }
+        else
+        {
+            Console.WriteLine("Se murio el personaje que has atacado");
+        }
+    }
+    
+    public void CurarElfo(Elfos elfos)
+    {
+            elfos.ValorVida = elfos.ValorVida + 20;
+    }
+       
+    public void CurarMago(Magos mago)
+    {
+        mago.ValorVida = mago.ValorVida + 20;
+    }
 
-    public Magos(string nombreMago, List<Item> itemsMago, double vida, List<Spell> hechizos, int dañoHecho,
-        int dañoAtaque,
-        int valorDefensa)
+    public void CurarDuendes(Duendes duendes)
+    {
+        duendes.ValorVida = duendes.ValorVida + 20;
+    }
+
+
+  
+    public int ValorAtaqueExtra()
+    {
+        int AtaqueExtra = 0;
+        foreach (Item item in ItemsMago)
+        {
+            AtaqueExtra += item.ValorAtaque;
+        }
+
+        return (AtaqueExtra + ValorAtaque);
+
+    }
+    public Magos(string nombreMago, int vida, SpellBook hechizos, int valorAtaque)
     {
         this.NombreMago = nombreMago;
-        this.ItemsMago = itemsMago;
-        this.Vida = vida;
-        this.Hechizos = hechizos;
-        this.DañoHecho = dañoHecho;
-        this.DañoAtaque = dañoAtaque;
-        this.ValorDefensa = valorDefensa;
+        this.ValorVida = vida;
+        this.LibroHechizos = hechizos;
+        this.ValorAtaque = valorAtaque;
+        this.ItemsMago = new List<Item>();
     }
 }
