@@ -1,0 +1,80 @@
+[1mdiff --git a/src/Library/Magos.cs b/src/Library/Magos.cs[m
+[1mindex 7ef7e9b..c1495d0 100644[m
+[1m--- a/src/Library/Magos.cs[m
+[1m+++ b/src/Library/Magos.cs[m
+[36m@@ -1,6 +1,71 @@[m
+[31m-﻿namespace Library;[m
+[32m+[m[32m﻿using System.Runtime.CompilerServices;[m
+ [m
+[31m-public class Magos[m
+[32m+[m[32mnamespace Library;[m
+[32m+[m
+[32m+[m[32mpublic class Mago[m
+ {[m
+[31m-    [m
+[32m+[m[32m    public string NombreMago[m
+[32m+[m[32m    {[m
+[32m+[m[32m        get { return nombremagoFinal;}[m
+[32m+[m[32m        set[m
+[32m+[m[32m        {[m
+[32m+[m[32m            string simbolos="!#$%&/())=?'¿´´¨+[]_:;";[m
+[32m+[m[32m            bool posible = false;[m
+[32m+[m[32m            foreach (var letra in value)[m
+[32m+[m[32m            {[m
+[32m+[m[32m                foreach (var simbolo in simbolos)[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    if (letra==simbolo)[m
+[32m+[m[32m                    {[m
+[32m+[m[32m                        posible = true;[m
+[32m+[m[32m                        break;[m
+[32m+[m[32m                    }[m
+[32m+[m[32m                }[m
+[32m+[m[32m            }[m
+[32m+[m
+[32m+[m[32m            if (posible)[m
+[32m+[m[32m            {[m
+[32m+[m[32m                throw new ArgumentException("El nombre es incorrecto. No puede contener símbolos.");[m
+[32m+[m[32m            }[m
+[32m+[m[32m            else[m
+[32m+[m[32m            {[m
+[32m+[m[32m                nombremagoFinal=value;[m
+[32m+[m[32m            }[m[41m [m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    private string nombremagoFinal;[m
+[32m+[m
+[32m+[m[32m    public List<Item> ItemsMago { get; set; }[m
+[32m+[m[32m    public double Vida { get; set; }[m
+[32m+[m[32m    public List<Spell> Hechizos { get; set; }[m
+[32m+[m[32m    public int DañoHecho { get; set; }[m
+[32m+[m[32m    public int DañoAtaque { get; set; }[m
+[32m+[m[32m    public int ValorDefensa { get; set; }[m
+[32m+[m[32m    public void curar()[m
+[32m+[m[32m    {[m
+[32m+[m[32m        double vidaCurable = (DañoHecho-(DañoHecho*(ValorDefensa/100)));[m
+[32m+[m[32m        double VidaCurada = Vida + vidaCurable;[m
+[32m+[m[32m        if (vidaCurable>Vida)[m
+[32m+[m[32m        {[m
+[32m+[m[32m            Vida = Vida;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        else[m
+[32m+[m[32m        {[m
+[32m+[m[32m            Vida = VidaCurada;[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public Mago(string nombreMago, List<Item> itemsMago, double vida, List<Spell> hechizos, int dañoHecho,[m
+[32m+[m[32m        int dañoAtaque,[m
+[32m+[m[32m        int valorDefensa)[m
+[32m+[m[32m    {[m
+[32m+[m[32m        this.NombreMago = nombreMago;[m
+[32m+[m[32m        this.ItemsMago = itemsMago;[m
+[32m+[m[32m        this.Vida = vida;[m
+[32m+[m[32m        this.Hechizos = hechizos;[m
+[32m+[m[32m        this.DañoHecho = dañoHecho;[m
+[32m+[m[32m        this.DañoAtaque = dañoAtaque;[m
+[32m+[m[32m        this.ValorDefensa = valorDefensa;[m
+[32m+[m[32m    }[m
+ }[m
+\ No newline at end of file[m
