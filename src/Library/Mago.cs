@@ -114,22 +114,22 @@ public class Mago
         }
     }
     
-    public void AtacarDuende(Duende duende)
+    public void AtacarDuende(Enano enano)
     {
         int ataque = CalcularAtaqueTotal();
-        if (ataque<duende.ValorVida)
+        if (ataque<enano.ValorVida)
         {
-            duende.ValorVida = duende.ValorVida - ValorAtaque;
-            Console.WriteLine($"{duende.Nombre} recibió un ataque de {ataque}.");
+            enano.ValorVida = enano.ValorVida - ValorAtaque;
+            Console.WriteLine($"{enano.Nombre} recibió un ataque de {ataque}.");
         }
         else
         {
-            duende.ValorVida = 0;
-            Console.WriteLine($"{duende.Nombre} murió.");
+            enano.ValorVida = 0;
+            Console.WriteLine($"{enano.Nombre} murió.");
         }
     }
     
-    public void CurarDuendes(Duende duende)
+    public void CurarDuendes(Enano duende)
     {
         if (duende.ValorVida < 80)
         {

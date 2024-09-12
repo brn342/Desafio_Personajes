@@ -1,17 +1,16 @@
-namespace Library;
+﻿namespace Library;
 using System;
-public class Elfo
+public class Enano
 {
     public string Nombre { get; set; }
-    public List<Item> ItemsElfo { get; set; }
+    public List<Item> ItemsEnano { get; set; }
     public int ValorVida { get; set; } = 100;
     public int ValorAtaque { get; set; } = 15;
     
-
-    public Elfo(string nombre, int valorAtaque, int valorVida, int valorDefensa)
+    public Enano(string nombre, int valorAtaque, int valorVida, int valorDefensa)
     {
         Nombre = nombre;
-        ItemsElfo = new List<Item>();
+        ItemsEnano = new List<Item>();
         ValorVida = valorVida;
         ValorAtaque = valorAtaque;
         ValorVida = valorDefensa;
@@ -19,13 +18,13 @@ public class Elfo
 
      public void AgregarItem(Item item)
     {
-        ItemsElfo.Add(item);
+        ItemsEnano.Add(item);
         Console.WriteLine("Sea agrego el item correctamente.");
     }
     
     public void QuitarItem(Item item)
     {
-        ItemsElfo.Remove(item);
+        ItemsEnano.Remove(item);
         Console.WriteLine("Sea quito el item correctamente.");
 
     }
@@ -33,7 +32,7 @@ public class Elfo
     public int CalcularVidaTotal()
     {
         int vidaExtra = 0;
-        foreach (Item item in ItemsElfo)
+        foreach (Item item in ItemsEnano)
         {
             vidaExtra += item.ValorDefensa;
         }
@@ -44,7 +43,7 @@ public class Elfo
     public int CalcularAtaqueTotal()
     {
         int ataqueExtra = 0;
-        foreach (Item item in ItemsElfo)
+        foreach (Item item in ItemsEnano)
         {
             ataqueExtra += item.ValorAtaque;
         }
@@ -73,7 +72,7 @@ public class Elfo
         if (mago.ValorVida < 80)
         {
             mago.ValorVida = mago.ValorVida + 20;
-            Console.WriteLine($"{mago.Nombre} aumento  su vida {mago.CalcularVidaTotal()}."); 
+            Console.WriteLine($"{mago.Nombre} aumento 20 puntos de salud.");
         }
         else
         {
@@ -103,7 +102,7 @@ public class Elfo
         if (elfo.ValorVida < 80)
         {
             elfo.ValorVida = elfo.ValorVida + 20;
-            Console.WriteLine($"{elfo.Nombre} aumento se vida a {elfo.CalcularVidaTotal()}.");
+            Console.WriteLine($"{elfo.Nombre} aumento 20 puntos de salud.");
         }
         else
         {
@@ -127,21 +126,12 @@ public class Elfo
         }
     }
     
-<<<<<<< HEAD
-    public void CurarDuendes(Enanos enano)
-    {
-        if (duende.ValorVida < 80)
-        {
-            duende.ValorVida = duende.ValorVida + 20;
-            Console.WriteLine($"{duende.Nombre} aumento se vida a {enano.CalcualrVidaTotal}.");
-=======
     public void CurarDuendes(Enano enano)
     {
-        if (enano.ValorVida < 20)
+        if (enano.ValorVida < 80)
         {
             enano.ValorVida = enano.ValorVida + 20;
             Console.WriteLine($"{enano.Nombre} aumento 20 puntos de salud.");
->>>>>>> 313925f1c5247c49f75e6f9b1ced765d01c64bb7
 
         }
         else
@@ -151,6 +141,3 @@ public class Elfo
         }
     }
 }
-
-    
-  
