@@ -4,14 +4,14 @@ public class Enanos
 {
     public string NombreEnano { get; set; }
     public List<Item> ItemsEnano { get; set; }
-    public int VidaEnano { get; set; }
+    public int Vida { get; set; }
     public int AtaqueEnano { get; set; }
 
     public Enanos(string nombre, int vida, int ataque)
     {
         NombreEnano = nombre;
         ItemsEnano = new List<Item>();
-        VidaEnano = vida;
+        Vida = vida;
         AtaqueEnano = ataque;
     }
 
@@ -32,7 +32,7 @@ public class Enanos
         {
             VidaExtra += item.ValorDefensa;
         }
-        return VidaExtra + VidaEnano;
+        return VidaExtra + Vida;
     }
 
     public int AtaqueTotal()
@@ -42,10 +42,10 @@ public class Enanos
         {
             AtaqueExtra += item.ValorAtaque;
         }
-        return VidaEnano + AtaqueExtra;
+        return Vida + AtaqueExtra;
     }
 
-    public int AtacarMago(Magos mago)
+    public void AtacarMago(Magos mago)
     {
         int ValorAtaque = AtaqueTotal();
         if (ValorAtaque < mago.Vida)
@@ -58,7 +58,13 @@ public class Enanos
         }
     }
 
-    public int AtacarElfo(Elfo elfo)
+    public void CurarMago(Magos mago)
+    {
+        mago.Vida += 20;
+        Console.WriteLine($"el mago {mago.NombreMago} ha recuperado 20 de vida");
+    }
+    
+    public void AtacarElfo(Elfo elfo)
     {
         int ValorAtaque = AtaqueTotal();
         if (ValorAtaque < elfo.Vida)
@@ -70,5 +76,29 @@ public class Enanos
             Console.WriteLine($"El elfo {elfo.NombreElfo} ha sido derrotado");
         }
     }
-    
+
+    public void CurarElfo(Elfo elfo)
+    {
+        elfo.Vida += 20;
+        Console.WriteLine($"El elfo {elfo.NombreElfo} ha recuperado 20 de vida");
+    }
+
+    public void AtacarEnano(Enanos enano)
+    {
+        int ValorAtaque = AtaqueTotal();
+        if (ValorAtaque < enano.Vida)
+        {
+            enano.Vida -= ValorAtaque;
+        }
+        else
+        {
+            Console.WriteLine($"El enano {enano.NombreEnano} ha sido derrotado");
+        }
+    }
+
+    public void CurarEnano(Enanos enano)
+    {
+        enano.Vida += 20;
+        Console.WriteLine($"El enano {enano.NombreEnano} ha recuperado 20 de vida");
+    }
 }
