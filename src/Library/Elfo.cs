@@ -127,22 +127,12 @@ public class Elfo
         }
     }
     
-<<<<<<< HEAD
-    public void CurarDuendes(Enanos enano)
+    public void CurarEnano(Enano enano)
     {
-        if (duende.ValorVida < 80)
-        {
-            duende.ValorVida = duende.ValorVida + 20;
-            Console.WriteLine($"{duende.Nombre} aumento se vida a {enano.CalcualrVidaTotal}.");
-=======
-    public void CurarDuendes(Enano enano)
-    {
-        if (enano.ValorVida < 20)
+        if (enano.ValorVida < 80)
         {
             enano.ValorVida = enano.ValorVida + 20;
-            Console.WriteLine($"{enano.Nombre} aumento 20 puntos de salud.");
->>>>>>> 313925f1c5247c49f75e6f9b1ced765d01c64bb7
-
+            Console.WriteLine($"{enano.Nombre} aumento su vida a {enano.CalcularVidaTotal()}.");
         }
         else
         {
