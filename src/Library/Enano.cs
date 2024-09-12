@@ -1,33 +1,30 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Library;
-
-public class Mago
+﻿namespace Library;
+using System;
+public class Enano
 {
     public string Nombre { get; set; }
-    public SpellBook SpellBook { get; set; }
-    public List<Item> ItemsMago { get; set; }
+    public List<Item> ItemsEnano { get; set; }
     public int ValorVida { get; set; } = 100;
-    public int ValorAtaque { get; set; } = 25;
+    public int ValorAtaque { get; set; } = 15;
     
-    public Mago(string nombre, int vida, SpellBook spellBook, int valorAtaque)
+    public Enano(string nombre, int valorAtaque, int valorVida, int valorDefensa)
     {
         Nombre = nombre;
-        ValorVida = vida;
-        SpellBook = spellBook;
+        ItemsEnano = new List<Item>();
+        ValorVida = valorVida;
         ValorAtaque = valorAtaque;
-        ItemsMago = new List<Item>();
+        ValorVida = valorDefensa;
     }
 
-    public void AgregarItem(Item item)
+     public void AgregarItem(Item item)
     {
-        ItemsMago.Add(item);
+        ItemsEnano.Add(item);
         Console.WriteLine("Sea agrego el item correctamente.");
     }
     
     public void QuitarItem(Item item)
     {
-        ItemsMago.Remove(item);
+        ItemsEnano.Remove(item);
         Console.WriteLine("Sea quito el item correctamente.");
 
     }
@@ -35,7 +32,7 @@ public class Mago
     public int CalcularVidaTotal()
     {
         int vidaExtra = 0;
-        foreach (Item item in ItemsMago)
+        foreach (Item item in ItemsEnano)
         {
             vidaExtra += item.ValorDefensa;
         }
@@ -46,7 +43,7 @@ public class Mago
     public int CalcularAtaqueTotal()
     {
         int ataqueExtra = 0;
-        foreach (Item item in ItemsMago)
+        foreach (Item item in ItemsEnano)
         {
             ataqueExtra += item.ValorAtaque;
         }
@@ -72,7 +69,7 @@ public class Mago
     
     public void CurarMago(Mago mago)
     {
-        if (mago.ValorVida < 20)
+        if (mago.ValorVida < 80)
         {
             mago.ValorVida = mago.ValorVida + 20;
             Console.WriteLine($"{mago.Nombre} aumento 20 puntos de salud.");
@@ -102,7 +99,7 @@ public class Mago
     
     public void CurarElfo(Elfo elfo)
     {
-        if (elfo.ValorVida < 20)
+        if (elfo.ValorVida < 80)
         {
             elfo.ValorVida = elfo.ValorVida + 20;
             Console.WriteLine($"{elfo.Nombre} aumento 20 puntos de salud.");
@@ -129,18 +126,18 @@ public class Mago
         }
     }
     
-    public void CurarDuendes(Enano duende)
+    public void CurarDuendes(Enano enano)
     {
-        if (duende.ValorVida < 20)
+        if (enano.ValorVida < 80)
         {
-            duende.ValorVida = duende.ValorVida + 20;
-            Console.WriteLine($"{duende.Nombre} aumento 20 puntos de salud.");
+            enano.ValorVida = enano.ValorVida + 20;
+            Console.WriteLine($"{enano.Nombre} aumento 20 puntos de salud.");
 
         }
         else
         {
-            duende.ValorVida = 100;
-            Console.WriteLine($"{duende.Nombre} aumento su salud al maximo.");
+            enano.ValorVida = 100;
+            Console.WriteLine($"{enano.Nombre} aumento su salud al maximo.");
         }
     }
 }

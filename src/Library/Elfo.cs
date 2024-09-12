@@ -114,33 +114,33 @@ public class Elfo
         }
     }
     
-    public void AtacarDuende(Duende duende)
+    public void AtacarDuende(Enano enano)
     {
         int ataque = CalcularAtaqueTotal();
-        if (ataque<duende.ValorVida)
+        if (ataque<enano.ValorVida)
         {
-            duende.ValorVida = duende.ValorVida - ValorAtaque;
-            Console.WriteLine($"{duende.Nombre} recibió un ataque de {ataque}.");
+            enano.ValorVida = enano.ValorVida - ValorAtaque;
+            Console.WriteLine($"{enano.Nombre} recibió un ataque de {ataque}.");
         }
         else
         {
-            duende.ValorVida = 0;
-            Console.WriteLine($"{duende.Nombre} murió.");
+            enano.ValorVida = 0;
+            Console.WriteLine($"{enano.Nombre} murió.");
         }
     }
     
-    public void CurarDuendes(Duende duende)
+    public void CurarDuendes(Enano enano)
     {
-        if (duende.ValorVida < 20)
+        if (enano.ValorVida < 20)
         {
-            duende.ValorVida = duende.ValorVida + 20;
-            Console.WriteLine($"{duende.Nombre} aumento 20 puntos de salud.");
+            enano.ValorVida = enano.ValorVida + 20;
+            Console.WriteLine($"{enano.Nombre} aumento 20 puntos de salud.");
 
         }
         else
         {
-            duende.ValorVida = 100;
-            Console.WriteLine($"{duende.Nombre} aumento su salud al maximo.");
+            enano.ValorVida = 100;
+            Console.WriteLine($"{enano.Nombre} aumento su salud al maximo.");
         }
     }
 }
