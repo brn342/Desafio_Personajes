@@ -56,33 +56,46 @@ public class Mago
 
     public void AtacarMago(Mago mago)
     {
-        int ataque = CalcularAtaqueTotal();
-        if (ataque < mago.ValorVida)
+        if (this == mago)
         {
-            mago.ValorVida = mago.ValorVida - ValorAtaque;
-            Console.WriteLine($"{mago.Nombre} recibió un ataque de {ataque}.");
-
+            Console.WriteLine("El personaje no puede atacrse a si mismo");
         }
         else
         {
-            mago.ValorVida = 0;
-            Console.WriteLine($"{mago.Nombre} murió.");
+            int ataque = CalcularAtaqueTotal();
+            if (ataque < mago.ValorVida)
+            {
+                mago.ValorVida = mago.ValorVida - ValorAtaque;
+                Console.WriteLine($"{mago.Nombre} recibió un ataque de {ataque}.");
+
+            }
+            else
+            {
+                mago.ValorVida = 0;
+                Console.WriteLine($"{mago.Nombre} murió.");
+            }
         }
     }
     
     public void CurarMago(Mago mago)
     {
-        if (mago.ValorVida < 80)
+        if (this == mago)
         {
-            mago.ValorVida = mago.ValorVida + 20;
-            Console.WriteLine($"{mago.Nombre} aumento su vida a {mago.CalcularVidaTotal()}.");
+            Console.WriteLine("El perosnaje no puede curarse a si mismo");
         }
         else
         {
-            mago.ValorVida = 100;
-            Console.WriteLine($"{mago.Nombre} aumento su salud al maximo.");
+            if (mago.ValorVida < 80)
+            {
+                mago.ValorVida = mago.ValorVida + 20;
+                Console.WriteLine($"{mago.Nombre} aumento su vida a {mago.CalcularVidaTotal()}.");
+            }
+            else
+            {
+                mago.ValorVida = 100;
+                Console.WriteLine($"{mago.Nombre} aumento su salud al maximo.");
+            }
         }
-
     }
     
     public void AtacarElfo(Elfo elfo)

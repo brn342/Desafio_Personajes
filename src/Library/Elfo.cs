@@ -84,30 +84,44 @@ public class Elfo
     
     public void AtacarElfo(Elfo elfo)
     {
-        int ataque = CalcularAtaqueTotal();
-        if (ataque < elfo.ValorVida)
+        if (this == elfo)
         {
-            elfo.ValorVida = elfo.ValorVida - ValorAtaque;
-            Console.WriteLine($"{elfo.Nombre} recibió un ataque de {ataque}.");
+            Console.WriteLine("El personaje no puede atacarse a si mismo");
         }
         else
         {
-            elfo.ValorVida = 0;
-            Console.WriteLine($"{elfo.Nombre} murió.");
+            int ataque = CalcularAtaqueTotal();
+            if (ataque < elfo.ValorVida)
+            {
+                elfo.ValorVida = elfo.ValorVida - ValorAtaque;
+                Console.WriteLine($"{elfo.Nombre} recibió un ataque de {ataque}.");
+            }
+            else
+            {
+                elfo.ValorVida = 0;
+                Console.WriteLine($"{elfo.Nombre} murió.");
+            }
         }
     }
     
     public void CurarElfo(Elfo elfo)
     {
-        if (elfo.ValorVida < 80)
+        if (this == elfo)
         {
-            elfo.ValorVida = elfo.ValorVida + 20;
-            Console.WriteLine($"{elfo.Nombre} aumento se vida a {elfo.CalcularVidaTotal()}.");
+            Console.WriteLine("El personaje no puede curarse a si mismo");
         }
         else
         {
-            elfo.ValorVida = 100;
-            Console.WriteLine($"{elfo.Nombre} aumento su salud al maximo.");
+           if (elfo.ValorVida < 80) 
+           {
+               elfo.ValorVida = elfo.ValorVida + 20;
+               Console.WriteLine($"{elfo.Nombre} aumento se vida a {elfo.CalcularVidaTotal()}.");
+           }
+           else
+           {
+               elfo.ValorVida = 100;
+               Console.WriteLine($"{elfo.Nombre} aumento su salud al maximo.");
+           } 
         }
     }
     
