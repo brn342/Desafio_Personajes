@@ -57,7 +57,18 @@ public class Enanos
             Console.WriteLine($"El mago {mago.NombreMago} ha sido derrotado");
         }
     }
-     
-    public int AtacarElfo()
+
+    public int AtacarElfo(Elfo elfo)
+    {
+        int ValorAtaque = AtaqueTotal();
+        if (ValorAtaque < elfo.Vida)
+        {
+            elfo.Vida -= ValorAtaque;
+        }
+        else
+        {
+            Console.WriteLine($"El elfo {elfo.NombreElfo} ha sido derrotado");
+        }
+    }
     
 }
