@@ -45,7 +45,7 @@ public class Mago
     
     public int CalcularAtaqueTotal()
     {
-        int ataqueExtra = 0;|
+        int ataqueExtra = 0;
         foreach (Item item in ItemsMago)
         {
             ataqueExtra += item.ValorAtaque;
@@ -114,33 +114,33 @@ public class Mago
         }
     }
     
-    public void AtacarEnano(Enano enano   )
+    public void AtacarDuende(Duende duende)
     {
         int ataque = CalcularAtaqueTotal();
-        if (ataque<enano.ValorVida)
+        if (ataque<duende.ValorVida)
         {
-            enano.ValorVida = enano.ValorVida - ValorAtaque;
-            Console.WriteLine($"{enano.Nombre} recibió un ataque de {ataque}.");
+            duende.ValorVida = duende.ValorVida - ValorAtaque;
+            Console.WriteLine($"{duende.Nombre} recibió un ataque de {ataque}.");
         }
         else
         {
-            enano.ValorVida = 0;
-            Console.WriteLine($"{Enano.Nombre} murió.");
+            duende.ValorVida = 0;
+            Console.WriteLine($"{duende.Nombre} murió.");
         }
     }
     
-    public void CurarEnano(Enano enano)
+    public void CurarDuendes(Duende duende)
     {
-        if (enano.ValorVida < 20)
+        if (duende.ValorVida < 20)
         {
-            enano.ValorVida = enano.ValorVida + 20;
-            Console.WriteLine($"{enano.Nombre} aumento 20 puntos de salud.");
+            duende.ValorVida = duende.ValorVida + 20;
+            Console.WriteLine($"{duende.Nombre} aumento 20 puntos de salud.");
 
         }
         else
         {
-            enano.ValorVida = 100;
-            Console.WriteLine($"{enano.Nombre} aumento su salud al maximo.");
+            duende.ValorVida = 100;
+            Console.WriteLine($"{duende.Nombre} aumento su salud al maximo.");
         }
     }
 }
