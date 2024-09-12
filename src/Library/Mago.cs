@@ -72,10 +72,10 @@ public class Mago
     
     public void CurarMago(Mago mago)
     {
-        if (mago.ValorVida < 20)
+        if (mago.ValorVida < 80)
         {
             mago.ValorVida = mago.ValorVida + 20;
-            Console.WriteLine($"{mago.Nombre} aumento 20 puntos de salud.");
+            Console.WriteLine($"{mago.Nombre} aumento su vida a {mago.CalcularVidaTotal()}.");
         }
         else
         {
@@ -102,10 +102,10 @@ public class Mago
     
     public void CurarElfo(Elfo elfo)
     {
-        if (elfo.ValorVida < 20)
+        if (elfo.ValorVida < 80)
         {
             elfo.ValorVida = elfo.ValorVida + 20;
-            Console.WriteLine($"{elfo.Nombre} aumento 20 puntos de salud.");
+            Console.WriteLine($"{elfo.Nombre} aumento su vida a {elfo.CalcularVidaTotal()}.");
         }
         else
         {
@@ -131,10 +131,10 @@ public class Mago
     
     public void CurarDuendes(Duende duende)
     {
-        if (duende.ValorVida < 20)
+        if (duende.ValorVida < 80)
         {
             duende.ValorVida = duende.ValorVida + 20;
-            Console.WriteLine($"{duende.Nombre} aumento 20 puntos de salud.");
+            Console.WriteLine($"{duende.Nombre} aumento su vida a {duende.CalcularVidaTotal}.");
 
         }
         else
