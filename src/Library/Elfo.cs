@@ -7,8 +7,6 @@ public class Elfo
     public int ValorVida { get; set; } = 100;
     public int ValorAtaque { get; set; } = 15;
     
-    
-    //public int Curacion { get; set; }
 
     public Elfo(string nombre, int valorAtaque, int valorVida)
     {
@@ -71,10 +69,10 @@ public class Elfo
     
     public void CurarMago(Mago mago)
     {
-        if (mago.ValorVida < 20)
+        if (mago.ValorVida < 80)
         {
             mago.ValorVida = mago.ValorVida + 20;
-            Console.WriteLine($"{mago.Nombre} aumento 20 puntos de salud.");
+            Console.WriteLine($"{mago.Nombre} aumento  su vida {mago.CalcularVidaTotal()}."); 
         }
         else
         {
@@ -101,10 +99,10 @@ public class Elfo
     
     public void CurarElfo(Elfo elfo)
     {
-        if (elfo.ValorVida < 20)
+        if (elfo.ValorVida < 80)
         {
             elfo.ValorVida = elfo.ValorVida + 20;
-            Console.WriteLine($"{elfo.Nombre} aumento 20 puntos de salud.");
+            Console.WriteLine($"{elfo.Nombre} aumento se vida a {elfo.CalcularVidaTotal()}.");
         }
         else
         {
@@ -128,12 +126,21 @@ public class Elfo
         }
     }
     
+<<<<<<< HEAD
+    public void CurarDuendes(Enanos enano)
+    {
+        if (duende.ValorVida < 80)
+        {
+            duende.ValorVida = duende.ValorVida + 20;
+            Console.WriteLine($"{duende.Nombre} aumento se vida a {enano.CalcualrVidaTotal}.");
+=======
     public void CurarDuendes(Enano enano)
     {
         if (enano.ValorVida < 20)
         {
             enano.ValorVida = enano.ValorVida + 20;
             Console.WriteLine($"{enano.Nombre} aumento 20 puntos de salud.");
+>>>>>>> 313925f1c5247c49f75e6f9b1ced765d01c64bb7
 
         }
         else
@@ -145,13 +152,4 @@ public class Elfo
 }
 
     
-     /*public void CurarElfo(Elfos elfo)
-     {
-         if (elfo.VidaTotal() < 100)
-         {
-             elfo.ValorVida += Curacion;
-         }
-    
-    */
-    
-    
+  
