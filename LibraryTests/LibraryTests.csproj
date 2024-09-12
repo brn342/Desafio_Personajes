@@ -21,8 +21,4 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Library\Library.csproj" />
-  </ItemGroup>
-
 </Project>

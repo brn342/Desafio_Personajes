@@ -8,13 +8,12 @@ public class Elfo
     public int ValorAtaque { get; set; } = 15;
     
 
-    public Elfo(string nombre, int valorAtaque, int valorVida, int valorDefensa)
+    public Elfo(string nombre, int valorAtaque, int valorVida)
     {
         Nombre = nombre;
         ItemsElfo = new List<Item>();
         ValorVida = valorVida;
         ValorAtaque = valorAtaque;
-        ValorVida = valorDefensa;
     }
 
      public void AgregarItem(Item item)

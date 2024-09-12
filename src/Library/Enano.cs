@@ -7,13 +7,12 @@ public class Enano
     public int ValorVida { get; set; } = 100;
     public int ValorAtaque { get; set; } = 15;
     
-    public Enano(string nombre, int valorAtaque, int valorVida, int valorDefensa)
+    public Enano(string nombre, int valorAtaque, int valorVida)
     {
         Nombre = nombre;
         ItemsEnano = new List<Item>();
         ValorVida = valorVida;
         ValorAtaque = valorAtaque;
-        ValorVida = valorDefensa;
     }
 
      public void AgregarItem(Item item)

@@ -9,17 +9,17 @@ namespace Tests
         private Elfo elfo1;
         private Elfo elfo2;
         private Mago mago1;
-        private Enano duende1;
+        private Duende duende1;
         private Item itemDefensa;
         private Item itemAtaque;
 
         [SetUp]
         public void Setup()
         {
-            elfo1 = new Elfo("Elrond", 15, 100);
-            elfo2 = new Elfo("Legolas", 15, 100);
+            elfo1 = new Elfo("Elrond", 15, 100, 10);
+            elfo2 = new Elfo("Legolas", 15, 100, 10);
             mago1 = new Mago("Gandalf", 100, new SpellBook("Libro de Hechizos"), 25);
-            duende1 = new Enano("Dobby", 100, 10);
+            duende1 = new Duende("Dobby", 100, 10);
 
             itemDefensa = new Item("Escudo", "Defensa", false, 0, 20);
             itemAtaque = new Item("Espada", "Ataque", false, 10, 0);
