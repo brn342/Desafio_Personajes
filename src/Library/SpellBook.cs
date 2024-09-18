@@ -26,6 +26,17 @@ public class SpellBook
 
         return poderTotal;
     }
+    
+    public int CalcularDefensaTotal()
+    {
+        int poderTotal = 0;
+        foreach (Spell hechizo in Hechizos)
+        {
+            poderTotal += hechizo.ValorDefensa;
+        }
+
+        return poderTotal;
+    }
 
     public void ListarHechizos()
     {
