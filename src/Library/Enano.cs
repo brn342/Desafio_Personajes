@@ -57,7 +57,6 @@ public class Enano
         {
             mago.ValorVida = mago.ValorVida - ValorAtaque;
             Console.WriteLine($"{mago.Nombre} recibió un ataque de {ataque}.");
-
         }
         else
         {
@@ -110,33 +109,47 @@ public class Enano
         }
     }
     
-    public void AtacarDuende(Enano enano)
+    public void AtacarEnano(Enano enano)
     {
-        int ataque = CalcularAtaqueTotal();
-        if (ataque<enano.ValorVida)
+        if (this == enano)
         {
-            enano.ValorVida = enano.ValorVida - ValorAtaque;
-            Console.WriteLine($"{enano.Nombre} recibió un ataque de {ataque}.");
+            Console.WriteLine("El personaje no puede atacrse a si mismo");
         }
         else
         {
-            enano.ValorVida = 0;
-            Console.WriteLine($"{enano.Nombre} murió.");
+            int ataque = CalcularAtaqueTotal();
+            if (ataque<enano.ValorVida)
+            {
+                enano.ValorVida = enano.ValorVida - ValorAtaque;
+                Console.WriteLine($"{enano.Nombre} recibió un ataque de {ataque}.");
+            }
+            else
+            {
+                enano.ValorVida = 0;
+                Console.WriteLine($"{enano.Nombre} murió.");
+            } 
         }
     }
     
     public void CurarDuendes(Enano enano)
     {
-        if (enano.ValorVida < 80)
+        if (this == enano)
         {
-            enano.ValorVida = enano.ValorVida + 20;
-            Console.WriteLine($"{enano.Nombre} aumento 20 puntos de salud.");
-
+            Console.WriteLine("El personaje no puede curarse a si mismo");
         }
         else
         {
-            enano.ValorVida = 100;
-            Console.WriteLine($"{enano.Nombre} aumento su salud al maximo.");
+            if (enano.ValorVida < 80)
+            {
+                enano.ValorVida = enano.ValorVida + 20;
+                Console.WriteLine($"{enano.Nombre} aumento 20 puntos de salud.");
+
+            }
+            else
+            {
+                enano.ValorVida = 100;
+                Console.WriteLine($"{enano.Nombre} aumento su salud al maximo.");
+            }
         }
     }
 }

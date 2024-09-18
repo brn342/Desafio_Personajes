@@ -72,10 +72,10 @@ public class Mago
     
     public void CurarMago(Mago mago)
     {
-        if (mago.ValorVida < 20)
+        if (mago.ValorVida < 80)
         {
             mago.ValorVida = mago.ValorVida + 20;
-            Console.WriteLine($"{mago.Nombre} aumento 20 puntos de salud.");
+            Console.WriteLine($"{mago.Nombre} aumento su vida a {mago.CalcularVidaTotal()}.");
         }
         else
         {
@@ -102,10 +102,10 @@ public class Mago
     
     public void CurarElfo(Elfo elfo)
     {
-        if (elfo.ValorVida < 20)
+        if (elfo.ValorVida < 80)
         {
             elfo.ValorVida = elfo.ValorVida + 20;
-            Console.WriteLine($"{elfo.Nombre} aumento 20 puntos de salud.");
+            Console.WriteLine($"{elfo.Nombre} aumento su vida a {elfo.CalcularVidaTotal()}.");
         }
         else
         {
@@ -114,27 +114,27 @@ public class Mago
         }
     }
     
-    public void AtacarDuende(Duende duende)
+    public void AtacarDuende(Enano enano)
     {
         int ataque = CalcularAtaqueTotal();
-        if (ataque<duende.ValorVida)
+        if (ataque<enano.ValorVida)
         {
-            duende.ValorVida = duende.ValorVida - ValorAtaque;
-            Console.WriteLine($"{duende.Nombre} recibió un ataque de {ataque}.");
+            enano.ValorVida = enano.ValorVida - ValorAtaque;
+            Console.WriteLine($"{enano.Nombre} recibió un ataque de {ataque}.");
         }
         else
         {
-            duende.ValorVida = 0;
-            Console.WriteLine($"{duende.Nombre} murió.");
+            enano.ValorVida = 0;
+            Console.WriteLine($"{enano.Nombre} murió.");
         }
     }
     
-    public void CurarDuendes(Duende duende)
+    public void CurarDuendes(Enano duende)
     {
-        if (duende.ValorVida < 20)
+        if (duende.ValorVida < 80)
         {
             duende.ValorVida = duende.ValorVida + 20;
-            Console.WriteLine($"{duende.Nombre} aumento 20 puntos de salud.");
+            Console.WriteLine($"{duende.Nombre} aumento su vida a {duende.CalcularVidaTotal}.");
 
         }
         else
