@@ -1,22 +1,27 @@
 namespace Library
 {
-    public class ItemDefensa : IItemDefensa
+    public class ItemMixto : IItemDefensa, IItemAtaque
     {
         public string NombreItem { get; set; }
-        public int Ataque { get; set; } = 0;  // Para ítems de defensa, el ataque es 0
+        public int Ataque { get; set; }
         public int Defensa { get; set; }
         public bool Especial { get; set; }
 
-        public ItemDefensa(string nombreItem, int ataque, bool especial)
+        public ItemMixto(string nombreItem, int ataque, bool especial)
         {
             NombreItem = nombreItem;
             Ataque = ataque;
             Especial = especial;
         }
+        
+        public int ValorAtaque()
+        {
+            return Ataque; 
+        }
 
         public int ValorDefensa()
         {
-            return Defensa; // Devuelve el valor de ataque del ítem
+            return Defensa;
         }
     }
 }

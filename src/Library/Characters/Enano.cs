@@ -6,7 +6,7 @@ public class Enano : IChar {
     public int ValorAtaque { get; set; }
     public List<IItem> Items { get; set; }
     
-    private int valorVidaInicial; // Vida máxima del personaje
+    public int ValorVidaInicial { get; } 
     
     public Enano(string nombre, int valorVida, int valorAtaque)
     {
@@ -14,9 +14,9 @@ public class Enano : IChar {
         ValorVida = valorVida;
         ValorAtaque = valorAtaque;
         Items = new List<IItem>();
-        valorVidaInicial = valorVidaInicial;
+        ValorVidaInicial = valorVida;
     }
-
+    
     public void AgregarItem(IItem item)
     {
         Items.Add(item);
@@ -54,34 +54,49 @@ public class Enano : IChar {
 
     public void Atacar(IChar enemigo)
     {
-        int ataque = CalcularAtaqueTotal();
-        if (ataque < enemigo.ValorVida)
+        if (enemigo == this)
         {
-            enemigo.ValorVida = enemigo.ValorVida - ValorAtaque;
-            Console.WriteLine($"{enemigo.Nombre} recibió un ataque de {ataque}.");
+            Console.WriteLine($"{Nombre} no puede atacarse a sí mismo.");
         }
         else
-        {
-            enemigo.ValorVida = 0;
-            Console.WriteLine($"{enemigo.Nombre} murió.");
+        { 
+            int ataque = CalcularAtaqueTotal();
+            if (ataque < enemigo.ValorVida)
+            {
+                enemigo.ValorVida = enemigo.ValorVida - ValorAtaque;
+                Console.WriteLine($"{enemigo.Nombre} recibió un ataque de {ataque}.");
+            }
+            else
+            {
+                enemigo.ValorVida = 0;
+                Console.WriteLine($"{enemigo.Nombre} murió.");
+            }   
         }
     }
 
     public void Curar(IChar aliado)
     {
-        int curacion = 20;
-        int vidaFaltante = valorVidaInicial - aliado.ValorVida;
-
-        if (vidaFaltante >= curacion)
+        if (aliado == this)
         {
-            aliado.ValorVida += curacion;
-            Console.WriteLine(
-                $"{Nombre} curó a {aliado.Nombre} con {curacion} puntos de vida. Ahora tiene {aliado.ValorVida} de vida.");
+            Console.WriteLine($"{Nombre} no puede curarse a sí mismo.");
         }
         else
         {
-            aliado.ValorVida = valorVidaInicial;
-            Console.WriteLine($"{Nombre} curó a {aliado.Nombre}, ahora tiene el valor maximo de vida.");
+            int curacion = 20;
+            int vidaFaltante = aliado.ValorVidaInicial - aliado.ValorVida;
+
+            // Verificar si la curación hace que la vida supere el valor máximo
+            if (aliado.ValorVida + curacion > aliado.ValorVidaInicial)
+            {
+                aliado.ValorVida = aliado.ValorVidaInicial; // La vida no puede exceder el valor máximo
+                Console.WriteLine($"{Nombre} curó a {aliado.Nombre}, ahora tiene el valor máximo de vida.");
+            }
+            else
+            {
+                aliado.ValorVida += curacion;
+                Console.WriteLine(
+                    $"{Nombre} curó a {aliado.Nombre} con {curacion} puntos de vida. Ahora tiene {aliado.ValorVida} de vida.");
+            }
         }
     }
 }

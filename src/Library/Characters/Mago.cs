@@ -8,7 +8,7 @@ public class Mago : IMagic
     public List<IItem> Items { get; set; }
     public SpellBook SpellBook { get; set; }
 
-    private int valorVidaInicial; // Vida máxima del personaje
+    public int ValorVidaInicial { get; } 
     
     public Mago(string nombre, int valorVida, int valorAtaque, SpellBook spellBook)
     {
@@ -17,7 +17,7 @@ public class Mago : IMagic
         ValorAtaque = valorAtaque;
         SpellBook = spellBook;
         Items = new List<IItem>();
-        valorVidaInicial = valorVida;
+        ValorVidaInicial = valorVida;
     }
 
     public void AgregarItem(IItem item)
@@ -57,67 +57,88 @@ public class Mago : IMagic
 
     public void Atacar(IChar enemigo)
     {
-        int ataque = CalcularAtaqueTotal();
-        if (ataque < enemigo.ValorVida)
+        if (enemigo == this)
         {
-            enemigo.ValorVida -= ValorAtaque;
-            Console.WriteLine($"{enemigo.Nombre} recibió un ataque de {ataque}.");
+            Console.WriteLine($"{Nombre} no puede atacarse a sí mismo.");
         }
         else
-        {
-            enemigo.ValorVida = 0;
-            Console.WriteLine($"{enemigo.Nombre} murió.");
+        { 
+            int ataque = CalcularAtaqueTotal();
+            if (ataque < enemigo.ValorVida)
+            {
+                enemigo.ValorVida = enemigo.ValorVida - ValorAtaque;
+                Console.WriteLine($"{enemigo.Nombre} recibió un ataque de {ataque}.");
+            }
+            else
+            {
+                enemigo.ValorVida = 0;
+                Console.WriteLine($"{enemigo.Nombre} murió.");
+            }   
         }
     }
 
     public void Curar(IChar aliado)
     {
-        int curacion = 20;
-        int vidaFaltante = valorVidaInicial - aliado.ValorVida;
-
-        if (vidaFaltante >= curacion)
+        if (aliado == this)
         {
-            aliado.ValorVida += curacion;
-            Console.WriteLine(
-                $"{Nombre} curó a {aliado.Nombre} con {curacion} puntos de vida. Ahora tiene {aliado.ValorVida} de vida.");
+            Console.WriteLine($"{Nombre} no puede curarse a sí mismo.");
         }
         else
         {
-            aliado.ValorVida = valorVidaInicial;
-            Console.WriteLine($"{Nombre} curó a {aliado.Nombre}, ahora tiene el valor maximo de vida.");
+            int curacion = 20;
+            int vidaFaltante = aliado.ValorVidaInicial - aliado.ValorVida;
+
+            // Verificar si la curación hace que la vida supere el valor máximo
+            if (aliado.ValorVida + curacion > aliado.ValorVidaInicial)
+            {
+                aliado.ValorVida = aliado.ValorVidaInicial; // La vida no puede exceder el valor máximo
+                Console.WriteLine($"{Nombre} curó a {aliado.Nombre}, ahora tiene el valor máximo de vida.");
+            }
+            else
+            {
+                aliado.ValorVida += curacion;
+                Console.WriteLine(
+                    $"{Nombre} curó a {aliado.Nombre} con {curacion} puntos de vida. Ahora tiene {aliado.ValorVida} de vida.");
+            }
         }
     }
 
     public void AtacarConHechizos(IChar enemigo)
     {
-        int ataque = SpellBook.CalcularAtaqueTotal();
-        if (ataque < enemigo.ValorVida)
+        if (enemigo == this) // Evitar que se ataque a sí mismo
         {
-            enemigo.ValorVida -= ValorAtaque;
-            Console.WriteLine($"{enemigo.Nombre} recibió un ataque de {ataque}.");
+            Console.WriteLine($"{Nombre} no puede atacarse a sí mismo.");
         }
         else
         {
-            enemigo.ValorVida = 0;
-            Console.WriteLine($"{enemigo.Nombre} murió.");
+            int ataque = SpellBook.CalcularAtaqueTotal();
+            if (ataque < enemigo.ValorVida)
+            {
+                enemigo.ValorVida -= ValorAtaque;
+                Console.WriteLine($"{enemigo.Nombre} recibió un ataque de {ataque}.");
+            }
+            else
+            {
+                enemigo.ValorVida = 0;
+                Console.WriteLine($"{enemigo.Nombre} murió.");
+            }
         }
     }
 
     public void CurarConHechizos(IChar aliado)
     {
         int curacion = SpellBook.CalcularDefensaTotal();
-        int vidaFaltante = valorVidaInicial - aliado.ValorVida;
+        int vidaFaltante = aliado.ValorVidaInicial - aliado.ValorVida;
 
-        if (vidaFaltante >= curacion)
+        if (aliado.ValorVida + curacion > aliado.ValorVidaInicial)
         {
-            aliado.ValorVida += curacion;
-            Console.WriteLine(
-                $"{Nombre} curó a {aliado.Nombre} con {curacion} puntos de vida. Ahora tiene {aliado.ValorVida} de vida.");
+            aliado.ValorVida = aliado.ValorVidaInicial; // La vida no puede exceder el valor máximo
+            Console.WriteLine($"{Nombre} curó a {aliado.Nombre}, ahora tiene el valor máximo de vida.");
         }
         else
         {
-            aliado.ValorVida = valorVidaInicial;
-            Console.WriteLine($"{Nombre} curó a {aliado.Nombre}, ahora tiene el valor maximo de vida.");
+            aliado.ValorVida += curacion;
+            Console.WriteLine($"{Nombre} curó a {aliado.Nombre} con {curacion} puntos de vida. Ahora tiene {aliado.ValorVida} de vida.");
         }
     }
 }

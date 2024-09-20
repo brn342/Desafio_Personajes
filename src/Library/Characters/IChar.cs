@@ -6,7 +6,7 @@ public interface IChar
     int ValorVida { get; set; }
     int ValorAtaque { get; set; }
     List<IItem> Items { get; set; }
-
+    int ValorVidaInicial { get; }
     
     void AgregarItem(IItem item);
     void QuitarItem(IItem item);
