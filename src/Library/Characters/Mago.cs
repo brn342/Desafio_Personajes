@@ -1,6 +1,6 @@
 namespace Library.Characters;
 
-public class Mago : IChar
+public class Mago : IMagic
 {
     public string Nombre { get; set; }
     public int ValorVida { get; set; }
