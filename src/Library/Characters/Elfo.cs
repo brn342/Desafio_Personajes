@@ -4,7 +4,7 @@ public class Elfo : IChar {
     public string Nombre { get; set; }
     public int ValorVida { get; set; }
     public int ValorAtaque { get; set; }
-    public List<Item> Items { get; set; }
+    public List<IItem> Items { get; set; }
     
     private int valorVidaInicial; // Vida máxima del personaje
 
@@ -14,17 +14,17 @@ public class Elfo : IChar {
         Nombre = nombre;
         ValorVida = valorVida;
         ValorAtaque = valorAtaque;
-        Items = new List<Item>();
+        Items = new List<IItem>();
         valorVidaInicial = valorVida;
     }
 
-    public void AgregarItem(Item item)
+    public void AgregarItem(IItem item)
     {
         Items.Add(item);
         Console.WriteLine("Sea agrego el item correctamente.");
     }
     
-    public void QuitarItem(Item item)
+    public void QuitarItem(IItem item)
     {
         Items.Remove(item);
         Console.WriteLine("Sea quito el item correctamente.");
@@ -34,9 +34,9 @@ public class Elfo : IChar {
     public int CalcularVidaTotal()
     {
         int vidaExtra = 0;
-        foreach (Item item in Items)
+        foreach (IItem item in Items)
         {
-            vidaExtra += item.ValorDefensa;
+            vidaExtra += item.Defensa;
         }
         
         return (vidaExtra + ValorVida);
@@ -45,9 +45,9 @@ public class Elfo : IChar {
     public int CalcularAtaqueTotal()
     {
         int ataqueExtra = 0;
-        foreach (Item item in Items)
+        foreach (IItem item in Items)
         {
-            ataqueExtra += item.ValorAtaque;
+            ataqueExtra += item.Ataque;
         }
 
         return (ataqueExtra + ValorAtaque);
@@ -81,7 +81,7 @@ public class Elfo : IChar {
         }
         else
         {
-            aliado.ValorVida = 100;
+            aliado.ValorVida = valorVidaInicial;
             Console.WriteLine($"{Nombre} curó a {aliado.Nombre}, ahora tiene el valor maximo de vida.");
         }
     }
