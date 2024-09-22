@@ -21,7 +21,18 @@ public class SpellBook
         int poderTotal = 0;
         foreach (Spell hechizo in Hechizos)
         {
-            poderTotal += hechizo.ValorAtaque;
+            poderTotal += hechizo.ValorAtaque();
+        }
+
+        return poderTotal;
+    }
+    
+    public int CalcularDefensaTotal()
+    {
+        int poderTotal = 0;
+        foreach (Spell hechizo in Hechizos)
+        {
+            poderTotal += hechizo.ValorDefensa();
         }
 
         return poderTotal;
@@ -31,7 +42,7 @@ public class SpellBook
     {
         foreach (Spell hechizo in Hechizos)
         {
-            Console.WriteLine($"- {hechizo.Nombre} tiene un poder de: {hechizo.ValorAtaque}");
+            Console.WriteLine($"- {hechizo.NombreItem} tiene un poder de: {hechizo.ValorAtaque}");
         }
     }
 }

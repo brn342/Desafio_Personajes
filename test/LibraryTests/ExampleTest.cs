@@ -1,85 +1,76 @@
 using NUnit.Framework;
-using Library; // Suponiendo que las clases estén en el namespace Library
+using Library.Characters;
 using System.Collections.Generic;
 
-namespace Tests
+namespace Library.Tests
 {
-    public class CharacterTests
+    [TestFixture]
+    public class PersonajeTests
     {
-        private Elfo elfo1;
-        private Elfo elfo2;
-        private Mago mago1;
-        private Enano duende1;
-        private Item itemDefensa;
-        private Item itemAtaque;
-
-        [SetUp]
-        public void Setup()
+        [Test]
+        public void NoDebeAtacarseASiMismo()
         {
-            elfo1 = new Elfo("Elrond", 15, 100);
-            elfo2 = new Elfo("Legolas", 15, 100);
-            mago1 = new Mago("Gandalf", 100, new SpellBook("Libro de Hechizos"), 25);
-            duende1 = new Enano("Dobby", 100, 10);
-
-            itemDefensa = new Item("Escudo", "Defensa", false, 0, 20);
-            itemAtaque = new Item("Espada", "Ataque", false, 10, 0);
+            var enano = new Enano("Natu", 100, 20);
+            enano.Atacar(enano);
+            
+            Assert.That(enano.ValorVida, Is.EqualTo(100));
         }
 
         [Test]
-        public void Elfo1AtacaMago1()
+        public void NoDebeCurarseASiMismo()
         {
-            elfo1.AtacarMago(mago1);
-
-            Assert.Less(mago1.ValorVida, 100);
+            var enano = new Enano("Natu", 50, 20);
+            enano.Curar(enano);
+            
+            Assert.That(enano.ValorVida, Is.EqualTo(50));
         }
 
         [Test]
-        public void Elfo1CuraMago1()
+        public void CurarPersonaje_NoExcedeVidaMaxima()
         {
-            mago1.ValorVida = 10;
+            var enano = new Enano("Natu", 80, 25); 
+            var aliado = new Enano("Seba", 90, 25);
 
-            elfo1.CurarMago(mago1);
+            aliado.Atacar(enano);
+            aliado.Curar(enano);
+            aliado.Curar(enano);
 
-            Assert.AreEqual(30, mago1.ValorVida);
+            Assert.That(enano.ValorVida, Is.EqualTo(80));
         }
 
         [Test]
-        public void Elfo1NoPuedeCurarseASiMismo()
+        public void PersonajeDebeMorirCuandoVidaEsCero()
+        {
+            var mago = new Mago("Seba", 30, 40, new SpellBook("Libro de Hechizos"));
+            var enano = new Enano("Natu", 50, 20);
+            mago.Atacar(enano); // 40 de ataque reduce la vida del enano
+            mago.Atacar(enano); // Otro ataque debería matarlo
+
+            Assert.That(enano.ValorVida, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void AgregarItemAumentaAtaque()
+        {
+            var enano = new Enano("Ntu", 100, 20);
+            var espada = new ItemAtaque("Espada de Acero", 15, false);
+            enano.AgregarItem(espada);
+            int ataqueTotal = enano.CalcularAtaqueTotal();
+
+            Assert.That(ataqueTotal, Is.EqualTo(35));
+        }
+
+        [Test]
+        public void QuitarItemDisminuyeDefensa()
         {
             // Arrange
-            elfo1.ValorVida = 10;
+            var enano = new Enano("Natu", 100, 20);
+            var escudo = new ItemDefensa("Escudo", 10, false);
+            enano.AgregarItem(escudo);
+            enano.QuitarItem(escudo);
+            int defensaTotal = enano.CalcularVidaTotal();
 
-            elfo1.CurarElfo(elfo1);
-
-            Assert.AreEqual(10, elfo1.ValorVida);
-        }
-
-        [Test]
-        public void Elfo1NoPuedeAtacarseASiMismo()
-        {
-            elfo1.AtacarElfo(elfo1);
-
-            Assert.AreEqual(100, elfo1.ValorVida);
-        }
-
-        [Test]
-        public void MuereDuende()
-        {
-            duende1.ValorVida = 10;
-
-            mago1.AtacarDuende(duende1);
-
-            Assert.AreEqual(0, duende1.ValorVida);
-        }
-
-        [Test]
-        public void SaludNoExcedeMaximo()
-        {
-            mago1.ValorVida = 95;
-
-            elfo1.CurarMago(mago1);
-
-            Assert.AreEqual(100, mago1.ValorVida);
+            Assert.That(defensaTotal, Is.EqualTo(100));
         }
     }
 }
