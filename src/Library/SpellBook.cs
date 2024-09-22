@@ -19,7 +19,7 @@ public class SpellBook
     public int CalcularAtaqueTotal()
     {
         int poderTotal = 0;
-        foreach (Spell hechizo in Hechizos),
+        foreach (Spell hechizo in Hechizos)
         {
             poderTotal += hechizo.ValorAtaque;
         }
