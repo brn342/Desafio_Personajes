@@ -7,10 +7,11 @@ namespace Library
         public int Defensa { get; set; }
         public bool Especial { get; set; }
 
-        public ItemMixto(string nombreItem, int ataque, bool especial)
+        public ItemMixto(string nombreItem, int ataque, int defensa, bool especial)
         {
             NombreItem = nombreItem;
             Ataque = ataque;
+            Defensa = defensa;
             Especial = especial;
         }
         
