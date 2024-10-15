@@ -1,16 +1,13 @@
 namespace Library
 {
-    public class ItemAtaque : IItemAtaque
+    public class ItemAtaque :ItemBase, IItemAtaque
     {
-        public string NombreItem { get; set; }
         public int Ataque { get; set; }
-        public bool Especial { get; set; }
 
         public ItemAtaque(string nombreItem, int ataque, bool especial)
+            : base(nombreItem, especial)
         {
-            NombreItem = nombreItem;
             Ataque = ataque;
-            Especial = especial;
         }
     }
 }

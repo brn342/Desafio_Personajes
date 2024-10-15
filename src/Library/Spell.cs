@@ -15,14 +15,4 @@ public class Spell: IItemMagico
         Ataque = ataque;
         Defensa = defensa;
     }
-
-    public int ValorAtaque()
-    {
-        return Ataque;
-    }
-
-    public int ValorDefensa()
-    {
-        return Defensa;
-    }
 }
