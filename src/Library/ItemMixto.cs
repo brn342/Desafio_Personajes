@@ -14,15 +14,5 @@ namespace Library
             Defensa = defensa;
             Especial = especial;
         }
-        
-        public int ValorAtaque()
-        {
-            return Ataque; 
-        }
-
-        public int ValorDefensa()
-        {
-            return Defensa;
-        }
     }
 }
