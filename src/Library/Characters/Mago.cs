@@ -38,9 +38,11 @@ public class Mago : IMagic
         int vidaExtra = 0;
         foreach (IItem item in Items)
         {
-            vidaExtra += item.Defensa;
+            if (item is IItemDefensa itemDefensa)
+            {
+                vidaExtra += itemDefensa.Defensa;
+            }
         }
-
         return (vidaExtra + ValorVida);
     }
 
@@ -49,9 +51,11 @@ public class Mago : IMagic
         int ataqueExtra = 0;
         foreach (IItem item in Items)
         {
-            ataqueExtra += item.Ataque;
+            if (item is IItemAtaque itemAtaque)
+            {
+                ataqueExtra += itemAtaque.Ataque;
+            }
         }
-
         return (ataqueExtra + ValorAtaque);
     }
 

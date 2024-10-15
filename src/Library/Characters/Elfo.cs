@@ -21,8 +21,15 @@ public class Elfo : IChar
 
     public void AgregarItem(IItem item)
     {
-        Items.Add(item);
-        Console.WriteLine("Sea agrego el item correctamente.");
+        if (item.Especial)
+        {
+            Console.WriteLine("El ítem no puede ser agregado por el elfo.");
+        }
+        else
+        {
+           Items.Add(item);
+           Console.WriteLine("Sea agrego el item correctamente."); 
+        }
     }
 
     public void QuitarItem(IItem item)
@@ -37,9 +44,11 @@ public class Elfo : IChar
         int vidaExtra = 0;
         foreach (IItem item in Items)
         {
-            vidaExtra += item.Defensa;
+            if (item is IItemDefensa itemDefensa)
+            {
+                vidaExtra += itemDefensa.Defensa;
+            }
         }
-
         return (vidaExtra + ValorVida);
     }
 
@@ -48,9 +57,11 @@ public class Elfo : IChar
         int ataqueExtra = 0;
         foreach (IItem item in Items)
         {
-            ataqueExtra += item.Ataque;
+            if (item is IItemAtaque itemAtaque)
+            {
+                ataqueExtra += itemAtaque.Ataque;
+            }
         }
-
         return (ataqueExtra + ValorAtaque);
     }
 

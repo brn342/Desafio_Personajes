@@ -26,14 +26,14 @@ namespace Demonstration
             Elfo seba = new Elfo("Seba", 90, 30);
 
             // Crear ítems de ataque y defensa
-            ItemAtaque espada = new ItemAtaque("Espada", 15, false);
-            ItemDefensa escudo = new ItemDefensa("Escudo", 0, true);
-            ItemMixto arcoConFlechas = new ItemMixto("Arco", 20, 5, false);
+            ItemAtaque espada = new ItemAtaque("Espada", 15, false); // ítem no especial
+            ItemDefensa escudo = new ItemDefensa("Escudo Mágico", 30, true); // ítem especial
+            ItemMixto arcoConFlechas = new ItemMixto("Arco con Flechas", 20, 5, false); // ítem mixto no especial
 
             // Añadir ítems a los personajes
-            natu.AgregarItem(espada);
-            seba.AgregarItem(arcoConFlechas);
-            bruno.AgregarItem(escudo);
+            natu.AgregarItem(espada); // Natu puede agregar ítems no especiales
+            seba.AgregarItem(arcoConFlechas); // Seba puede agregar ítems no especiales
+            bruno.AgregarItem(escudo); // Bruno puede agregar ítems especiales (Mago)
 
             // Mostrar información inicial
             Console.WriteLine("Estado inicial de los personajes:");
@@ -41,22 +41,22 @@ namespace Demonstration
             MostrarEstadoPersonaje(seba);
             MostrarEstadoPersonaje(bruno);
 
-            // Acciones: Gandalf ataca con un hechizo a Gimli
+            // Acciones: Bruno ataca con un hechizo a Natu
             Console.WriteLine("\nBruno ataca a Natu con un hechizo...");
             bruno.AtacarConHechizos(natu);
             MostrarEstadoPersonaje(natu);
 
-            // Legolas ataca a Gimli
+            // Seba ataca a Natu
             Console.WriteLine("\nSeba ataca a Natu con su arco...");
             seba.Atacar(natu);
             MostrarEstadoPersonaje(natu);
 
-            // Gandalf cura a Gimli usando un hechizo
+            // Bruno cura a Natu usando un hechizo
             Console.WriteLine("\nBruno cura a Natu con un hechizo...");
             bruno.CurarConHechizos(natu);
             MostrarEstadoPersonaje(natu);
 
-            // Gimli contraataca a Legolas
+            // Natu contraataca a Seba
             Console.WriteLine("\nNatu contraataca a Seba...");
             natu.Atacar(seba);
             MostrarEstadoPersonaje(seba);
@@ -66,7 +66,7 @@ namespace Demonstration
         {
             Console.WriteLine($"{personaje.Nombre} tiene {personaje.ValorVida}/{personaje.ValorVidaInicial} puntos de vida.");
             Console.WriteLine($"Ataque total: {personaje.CalcularAtaqueTotal()}");
-            Console.WriteLine($"Ítems: {string.Join(", ", personaje.Items.ConvertAll(item => item.NombreItem))}"); // codigo buscado en ChatGPT y verificado en StackOverflow
+            Console.WriteLine($"Ítems: {string.Join(", ", personaje.Items.ConvertAll(item => item.NombreItem))}"); // Mostrar nombres de los ítems
         }
     }
 }

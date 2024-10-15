@@ -19,8 +19,15 @@ public class Enano : IChar {
     
     public void AgregarItem(IItem item)
     {
-        Items.Add(item);
-        Console.WriteLine("Sea agrego el item correctamente.");
+        if (item.Especial)
+        {
+            Console.WriteLine("El ítem especial no puede ser agregado al enano");
+        }
+        else
+        {
+            Items.Add(item);
+            Console.WriteLine("Sea agrego el item correctamente.");
+        }
     }
     
     public void QuitarItem(IItem item)
@@ -35,20 +42,24 @@ public class Enano : IChar {
         int vidaExtra = 0;
         foreach (IItem item in Items)
         {
-            vidaExtra += item.Defensa;
+            if (item is IItemDefensa itemDefensa)
+            {
+                vidaExtra += itemDefensa.Defensa;
+            }
         }
-        
         return (vidaExtra + ValorVida);
     }
-    
+
     public int CalcularAtaqueTotal()
     {
         int ataqueExtra = 0;
         foreach (IItem item in Items)
         {
-            ataqueExtra += item.Ataque;
+            if (item is IItemAtaque itemAtaque)
+            {
+                ataqueExtra += itemAtaque.Ataque;
+            }
         }
-
         return (ataqueExtra + ValorAtaque);
     }
 
