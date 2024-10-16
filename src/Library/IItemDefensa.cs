@@ -1,6 +1,6 @@
 namespace Library;
 
-public interface IItemDefensa: IItem
+public interface IItemDefensa
 {
-    int ValorDefensa();
+    int Defensa { get; set; }
 }

@@ -1,6 +1,6 @@
 namespace Library;
 
-public class Spell: IItemAtaque, IItemDefensa
+public class Spell: IItemMagico
 {
     public string NombreItem { get; set; }
     public int Ataque { get; set; }
@@ -14,15 +14,5 @@ public class Spell: IItemAtaque, IItemDefensa
         NombreItem = nombreItem;
         Ataque = ataque;
         Defensa = defensa;
-    }
-
-    public int ValorAtaque()
-    {
-        return Ataque;
-    }
-
-    public int ValorDefensa()
-    {
-        return Defensa;
     }
 }

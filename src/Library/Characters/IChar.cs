@@ -5,11 +5,12 @@ public interface IChar
     string Nombre { get; set; }
     int ValorVida { get; set; }
     int ValorAtaque { get; set; }
-    List<IItem> Items { get; set; }
+    List<ItemBase> Items { get; set; }
     int ValorVidaInicial { get; }
-    
-    void AgregarItem(IItem item);
-    void QuitarItem(IItem item);
+    int PV { get; set; }
+
+    void AgregarItem(ItemBase item);
+    void QuitarItem(ItemBase item);
     int CalcularVidaTotal();
     int CalcularAtaqueTotal();
     void Atacar(IChar enemigo);

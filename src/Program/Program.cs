@@ -9,64 +9,45 @@ namespace Demonstration
     {
         static void Main(string[] args)
         {
-            // Crear un SpellBook con hechizos para el Mago
-            SpellBook libroHechizos = new SpellBook("Libro de Hechizos Avanzados");
-            Spell hechizoFuego = new Spell("Bola de Fuego", 30, 5);
-            Spell hechizoCuracion = new Spell("Curación", 0, 20);
-            libroHechizos.AgregarHechizo(hechizoFuego);
-            libroHechizos.AgregarHechizo(hechizoCuracion);
+            // Crear héroes (magos, elfos, enanos) y enemigos
+            Mago mago = new Mago("Bruno", 120, 40, new SpellBook("Spellbook Bruno"));
+            Elfo elfo = new Elfo("Seba", 100, 35);
+            Enano enano = new Enano("Natu", 130, 45);
+            Enemigo enemigo = new Enemigo("Orco", 80, 30, 15); // El enemigo otorga 15 VP
 
-            // Crear un Mago
-            Mago bruno = new Mago("Bruno", 100, 20, libroHechizos);
+            // Agregar ítems
+            ItemAtaque espada = new ItemAtaque("Espada", 20, false);
+            ItemDefensa escudo = new ItemDefensa("Escudo", 10, false);
 
-            // Crear un Enano
-            Enano natu = new Enano("Natu", 120, 25);
+            mago.AgregarItem(espada);
+            enemigo.AgregarItem(escudo);
 
-            // Crear un Elfo
-            Elfo seba = new Elfo("Seba", 90, 30);
-
-            // Crear ítems de ataque y defensa
-            ItemAtaque espada = new ItemAtaque("Espada", 15, false);
-            ItemDefensa escudo = new ItemDefensa("Escudo", 0, true);
-            ItemMixto arcoConFlechas = new ItemMixto("Arco", 20, 5, false);
-
-            // Añadir ítems a los personajes
-            natu.AgregarItem(espada);
-            seba.AgregarItem(arcoConFlechas);
-            bruno.AgregarItem(escudo);
-
-            // Mostrar información inicial
+            // Mostrar estado inicial
             Console.WriteLine("Estado inicial de los personajes:");
-            MostrarEstadoPersonaje(natu);
-            MostrarEstadoPersonaje(seba);
-            MostrarEstadoPersonaje(bruno);
+            MostrarEstadoPersonaje(mago);
+            MostrarEstadoPersonaje(enemigo);
 
-            // Acciones: Gandalf ataca con un hechizo a Gimli
-            Console.WriteLine("\nBruno ataca a Natu con un hechizo...");
-            bruno.AtacarConHechizos(natu);
-            MostrarEstadoPersonaje(natu);
+            // Héroe ataca al enemigo
+            Console.WriteLine("\nGandalf ataca al orco...");
+            mago.Atacar(enemigo);
 
-            // Legolas ataca a Gimli
-            Console.WriteLine("\nSeba ataca a Natu con su arco...");
-            seba.Atacar(natu);
-            MostrarEstadoPersonaje(natu);
+            // Mostrar estado del enemigo después del ataque
+            MostrarEstadoPersonaje(enemigo);
 
-            // Gandalf cura a Gimli usando un hechizo
-            Console.WriteLine("\nBruno cura a Natu con un hechizo...");
-            bruno.CurarConHechizos(natu);
-            MostrarEstadoPersonaje(natu);
+            // Segundo ataque, el orco debería morir y Gandalf gana puntos de victoria
+            mago.Atacar(enemigo);
 
-            // Gimli contraataca a Legolas
-            Console.WriteLine("\nNatu contraataca a Seba...");
-            natu.Atacar(seba);
-            MostrarEstadoPersonaje(seba);
+            // Mostrar estado final y puntos de victoria
+            MostrarEstadoPersonaje(enemigo);
+            Console.WriteLine($"{mago.Nombre} tiene {mago.PV} puntos de victoria.");
         }
 
         static void MostrarEstadoPersonaje(IChar personaje)
         {
             Console.WriteLine($"{personaje.Nombre} tiene {personaje.ValorVida}/{personaje.ValorVidaInicial} puntos de vida.");
             Console.WriteLine($"Ataque total: {personaje.CalcularAtaqueTotal()}");
-            Console.WriteLine($"Ítems: {string.Join(", ", personaje.Items.ConvertAll(item => item.NombreItem))}"); // codigo buscado en ChatGPT y verificado en StackOverflow
+            Console.WriteLine($"Puntos de victoria (VP): {personaje.PV}");
+            Console.WriteLine($"Ítems: {string.Join(", ", personaje.Items.ConvertAll(item => item.NombreItem))}");
         }
     }
 }
