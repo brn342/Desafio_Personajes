@@ -95,6 +95,69 @@ namespace Library.Tests
             mago.AgregarItem(itemMagico);
             Assert.That(mago.Items, Contains.Item(itemMagico)); // Verifica que lo tiene
         }
+        
+        [Test]
+        public void EnemigoSeCreaCorrectamenteConVP()
+        {
+            var orc = new Enemigo("Orco", 80, 30, 15); // El enemigo tiene 15 puntos de victoria (VP)
+
+            // Verifica que el enemigo se crea con los valores correctos
+            Assert.That(orc.Nombre, Is.EqualTo("Orco"));
+            Assert.That(orc.ValorVida, Is.EqualTo(80));
+            Assert.That(orc.ValorAtaque, Is.EqualTo(30));
+            Assert.That(orc.PV, Is.EqualTo(15)); // Verifica que tenga los VP correctos
+        }
+
+        [Test]
+        public void HeroeGanaVPAlMatarEnemigo()
+        {
+            var hero = new Mago("Bruno", 120, 50, new SpellBook("Spellbook Gandalf"));
+            var orc = new Enemigo("Orco", 50, 30, 10); // El enemigo otorga 10 puntos de victoria (VP)
+
+            // El héroe ataca dos veces, el enemigo debería morir en el segundo ataque
+            hero.Atacar(orc); // Reduce la vida del orco a 0
+            hero.Atacar(orc); // El orco muere
+
+            // Verifica que el enemigo esté muerto
+            Assert.That(orc.ValorVida, Is.EqualTo(0));
+
+            // Verifica que el héroe haya ganado los 10 puntos de victoria
+            Assert.That(hero.PuntosVictoriaAcumulados, Is.EqualTo(10));
+        }
+        
+        [Test]
+        public void HeroeAcumulaPuntosCorrectamente()
+        {
+            var hero = new Enano("Bruno", 130, 40);
+            var orc1 = new Enemigo("Orco", 50, 30, 5); // Primer enemigo otorga 5 VP
+            var orc2 = new Enemigo("Orco", 50, 30, 10); // Segundo enemigo otorga 10 VP
+
+            // El héroe mata al primer enemigo
+            hero.Atacar(orc1);
+            hero.Atacar(orc1);
+
+            // El héroe mata al segundo enemigo
+            hero.Atacar(orc2);
+            hero.Atacar(orc2);
+
+            // Verifica que los puntos de victoria acumulados sean correctos
+            Assert.That(hero.PuntosVictoriaAcumulados, Is.EqualTo(15)); // 5 + 10 = 15
+            Assert.That(hero.PV, Is.EqualTo(0));
+        }
+        
+        [Test]
+        public void EnemigoPierdeVidaAlSerAtacado()
+        {
+            var hero = new Elfo("Natu", 100, 35);
+            var orc = new Enemigo("Orco", 80, 30, 10); // El enemigo tiene 80 de vida
+
+            // El héroe ataca una vez
+            hero.Atacar(orc);
+
+            // Verifica que la vida del enemigo se haya reducido
+            Assert.That(orc.ValorVida, Is.LessThan(80));
+            Assert.That(orc.ValorVida, Is.EqualTo(45)); // 80 - 35 (ataque del elfo) = 45
+        }
 
     }
 }

@@ -1,6 +1,6 @@
 namespace Library.Characters;
 
-public class Mago : PersonajeBase, IMagic
+public class Mago : Hero, IMagic
 {
     public SpellBook SpellBook { get; set; }
 

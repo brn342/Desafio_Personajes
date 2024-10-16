@@ -1,12 +1,14 @@
 namespace Library.Characters;
 
-public class PersonajeBase: IChar
+public abstract class PersonajeBase: IChar
 {
     public string Nombre { get; set; }
     public int ValorVida { get; set; }
     public int ValorAtaque { get; set; }
     public List<ItemBase> Items { get; set; }
     public int ValorVidaInicial { get; }
+    
+    public abstract int PV { get; set; }
 
     public PersonajeBase(string nombre, int valorVida, int valorAtaque)
     {
@@ -62,7 +64,7 @@ public class PersonajeBase: IChar
         return ataqueExtra + ValorAtaque;
     }
 
-    public void Atacar(IChar enemigo)
+    public virtual void Atacar(IChar enemigo)
     {
         if (enemigo == this)
         {
