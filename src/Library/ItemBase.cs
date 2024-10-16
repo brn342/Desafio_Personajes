@@ -1,6 +1,6 @@
 namespace Library;
 
-public class ItemBase: IItem
+public class ItemBase
 {
     public string NombreItem { get; set; }
     public bool Especial { get; set; }

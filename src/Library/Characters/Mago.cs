@@ -10,7 +10,7 @@ public class Mago : PersonajeBase, IMagic
         SpellBook = spellBook;
     }
 
-    public override void AgregarItem(IItem item)
+    public override void AgregarItem(ItemBase item)
     {
         // El mago puede agregar tanto ítems normales como especiales
         Items.Add(item);

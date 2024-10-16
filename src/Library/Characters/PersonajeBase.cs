@@ -5,7 +5,7 @@ public class PersonajeBase: IChar
     public string Nombre { get; set; }
     public int ValorVida { get; set; }
     public int ValorAtaque { get; set; }
-    public List<IItem> Items { get; set; }
+    public List<ItemBase> Items { get; set; }
     public int ValorVidaInicial { get; }
 
     public PersonajeBase(string nombre, int valorVida, int valorAtaque)
@@ -14,10 +14,10 @@ public class PersonajeBase: IChar
         ValorVida = valorVida;
         ValorAtaque = valorAtaque;
         ValorVidaInicial = valorVida;
-        Items = new List<IItem>();
+        Items = new List<ItemBase>();
     }
     
-    public virtual void AgregarItem(IItem item)
+    public virtual void AgregarItem(ItemBase item)
     {
         if (item.Especial)
         {
@@ -30,7 +30,7 @@ public class PersonajeBase: IChar
         }
     }
 
-    public void QuitarItem(IItem item)
+    public void QuitarItem(ItemBase item)
     {
         Items.Remove(item);
         Console.WriteLine($"{Nombre} quitó el ítem {item.NombreItem} correctamente.");
@@ -39,7 +39,7 @@ public class PersonajeBase: IChar
     public int CalcularVidaTotal()
     {
         int vidaExtra = 0;
-        foreach (IItem item in Items)
+        foreach (ItemBase item in Items)
         {
             if (item is IItemDefensa itemDefensa)
             {
@@ -52,7 +52,7 @@ public class PersonajeBase: IChar
     public int CalcularAtaqueTotal()
     {
         int ataqueExtra = 0;
-        foreach (IItem item in Items)
+        foreach (ItemBase item in Items)
         {
             if (item is IItemAtaque itemAtaque)
             {
