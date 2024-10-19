@@ -13,7 +13,7 @@ namespace Demonstration
             Mago mago = new Mago("Bruno", 120, 40, new SpellBook("Spellbook Bruno"));
             Elfo elfo = new Elfo("Seba", 100, 35);
             Enano enano = new Enano("Natu", 130, 45);
-            
+         
             Enemigo enemigo = new Enemigo("Orco", 80, 30, 15); // El enemigo otorga 15 VP
 
             // Agregar ítems
