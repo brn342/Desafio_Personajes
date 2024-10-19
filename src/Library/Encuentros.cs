@@ -9,7 +9,6 @@ public class Encuentros
     private string turnoActual="turnoVillano";
     public List<Hero> Heroes;
     public List<Enemigo> Enemigos;
-    
     public string CambiarTurno()
     {
         return turnoActual == "turnoEnemigo" ? "turnoHeroe":"turnoEnemigo";
@@ -37,7 +36,7 @@ public class Encuentros
                         indiceHeroe = 0;
                         Enemigos[indiceEnemigo].Atacar(Heroes[indiceHeroe]);
                     }
-                    
+
                     indiceEnemigo += 1;
                     indiceHeroe += 1;
                 }
@@ -78,7 +77,7 @@ public class Encuentros
          {
              if (Heroes.Count==0)
              {
-                 Console.WriteLine("Los villanos han sido derrotado ");
+                 Console.WriteLine("Los villanos los han derrotado chaval");
              }
              else if (Enemigos.Count==0)
              {
