@@ -4,8 +4,6 @@ namespace Library;
 
 public class Encuentro
 {
-    private PersonajeBase Hero;
-    private PersonajeBase Enemigo;
     private string turnoActual = "turnoEnemigo";
     public List<Hero> Heroes;
     public List<Enemigo> Enemigos;
@@ -14,6 +12,18 @@ public class Encuentro
     {
         Heroes= new List<Hero>(heroes);
         Enemigos = new List<Enemigo>(enemigos);
+    }
+
+    public void AgregarHeroes(Hero heroe)
+    {
+        if (!Heroes.Contains(heroe))
+        {
+            Heroes.Add(heroe);
+        }
+        else
+        {
+            Console.WriteLine("Ese heroe ya ha sido agregado");
+        }
     }
 
     public string CambiarTurno()
@@ -27,9 +37,6 @@ public class Encuentro
 
         while (Heroes.Count > 0 && Enemigos.Count > 0)
         {
-
-
-
             if (turnoActual == "turnoEnemigo")
             {
                 EnemigosAtacan();
@@ -37,7 +44,6 @@ public class Encuentro
             }
             else
             {
-
                 HeroesAtacan();
                 CambiarTurno();
             }
@@ -49,8 +55,17 @@ public class Encuentro
 
     public void MostrarEstado()
     {
-        Console.WriteLine($"{Hero.Nombre} tiene {Hero.ValorVida} de vida ");
-        Console.WriteLine($"{Enemigo.Nombre} tiene {Enemigo.ValorVida} de vida");
+        Console.WriteLine($"Los heroes {Heroes.Count} restantes tienen este valor de vida:");
+        foreach (var heroe in Heroes)
+        {
+            Console.WriteLine($" {heroe.Nombre} : {heroe.ValorVida}");
+        }
+        
+        Console.WriteLine($"Los enemigos {Enemigos.Count} restantes tienen este valor de vida:");
+        foreach (var enemigo in Enemigos)
+        {
+            Console.WriteLine($" {enemigo.Nombre} : {enemigo.ValorVida}");
+        }
     }
 
     public void SaberGanador()
@@ -82,7 +97,7 @@ public class Encuentro
             {
                 Console.WriteLine($"El heroe {Heroes[indiceHeroe].Nombre} ha sido derrotado");
                 Heroes.Remove(Heroes[indiceHeroe]);
-                
+                indiceHeroe -= 1;
             }
 
             indiceEnemigo += 1;
@@ -106,9 +121,13 @@ public class Encuentro
             {
                 Console.WriteLine($"El enemigo {Enemigos[indiceEnemigo].Nombre} ha sido derrotado");
                 Enemigos.Remove(Enemigos[indiceEnemigo]);
+                indiceEnemigo -= 1;
+                
             }
             indiceEnemigo += 1;
             indiceHeroe += 1;
+            
         }
     }
 }
+
