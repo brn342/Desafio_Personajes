@@ -9,16 +9,14 @@ public class Encuentros
     private string turnoActual="turnoVillano";
     public List<Hero> Heroes;
     public List<Enemigo> Enemigos;
-<<<<<<< HEAD
-=======
 
-    public Encuentro(List<Hero> heroes, List<Enemigo> enemigos)
+
+    public Encuentros(List<Hero> heroes, List<Enemigo> enemigos)
     {
         Heroes= new List<Hero>(heroes);
         Enemigos = new List<Enemigo>(enemigos);
     }
-
->>>>>>> trabajoNatu
+    
     public string CambiarTurno()
     {
         return turnoActual == "turnoEnemigo" ? "turnoHeroe":"turnoEnemigo";
@@ -73,18 +71,16 @@ public class Encuentros
 
                 CambiarTurno();
             }
-<<<<<<< HEAD
+
             EstadoBatalla();
-=======
 
             MostrarEstado();
->>>>>>> trabajoNatu
+
         }
         SaberGanador();
     }
 
     public void MostrarEstado()
-<<<<<<< HEAD
          {   
              Console.WriteLine($"{Hero.Nombre} tiene esta cantidad de vida ");
              Console.WriteLine($"{Enemigo.Nombre} tiene esta cantidad de vida");
@@ -111,22 +107,26 @@ public class Encuentros
          }
 
 }
-=======
-    {
+
+   /* {
         Console.WriteLine($"{Hero.Nombre} tiene {Hero.ValorVida} de vida ");
         Console.WriteLine($"{Enemigo.Nombre} tiene {Enemigo.ValorVida} de vida");
-    }
+    }*/
 
-    public void SaberGanador()
+    public PersonajeBase SaberGanador()
     {
         if (Heroes.Count == 0)
         {
             Console.WriteLine("Todos los heroes han sido derrotados, los villanos ganan");
+            return Enemigos;
         }
         else if (Enemigos.Count == 0)
         {
             Console.WriteLine("Los heroes han derrotado a los villanos exitosamente");
+            return Heroes;
         }
+
+        return null;
     }
 
     private void EnemigosAtacan()
