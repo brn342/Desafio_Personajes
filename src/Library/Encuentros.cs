@@ -6,7 +6,7 @@ public class Encuentro
 {
     private PersonajeBase Hero;
     private PersonajeBase Enemigo;
-    private string turnoActual = "turnoVillano";
+    private string turnoActual = "turnoEnemigo";
     public List<Hero> Heroes;
     public List<Enemigo> Enemigos;
 
@@ -90,7 +90,6 @@ public class Encuentro
         }
         
     }
-
     private void HeroesAtacan()
     {
         int indiceEnemigo = 0;
