@@ -3,7 +3,7 @@ namespace Library.Characters;
 public class Hero: PersonajeBase
 {
     public override int PV { get; set; } = 0;
-    public int PuntosVictoriaAcumulados { get; private set; } = 0;
+    public int PuntosVictoriaAcumulados { get;  set; } = 0;//hola brunito, te sacamos el private set porque nos impedia en la clase Encuetros linea +- entre [120-130]
 
 
     public Hero(string nombre, int valorVida, int valorDefensa)

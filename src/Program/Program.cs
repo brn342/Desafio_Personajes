@@ -14,7 +14,7 @@ namespace Demonstration
             Elfo elfo = new Elfo("Seba", 100, 35);
             Enano enano = new Enano("Natu", 130, 45);
          
-            Enemigo enemigo = new Enemigo("Orco", 80, 30, 15); // El enemigo otorga 15 VP
+            Enemigo enemigo = new Enemigo("Orco", 80, 30, 1); // El enemigo otorga 15 VP
 
             // Agregar ítems
             ItemAtaque espada = new ItemAtaque("Espada", 20, false);
