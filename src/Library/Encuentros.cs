@@ -12,8 +12,8 @@ public class Encuentro
 
     public Encuentro(List<Hero> heroes, List<Enemigo> enemigos)
     {
-        Heroes = heroes;
-        Enemigos = enemigos;
+        Heroes= new List<Hero>(heroes);
+        Enemigos = new List<Enemigo>(enemigos);
     }
 
     public string CambiarTurno()
@@ -42,34 +42,27 @@ public class Encuentro
                 CambiarTurno();
             }
 
-            EstadoBatalla();
+            MostrarEstado();
         }
+        SaberGanador();
     }
 
     public void MostrarEstado()
     {
-        Console.WriteLine($"{Hero.Nombre} tiene esta cantidad de vida ");
-        Console.WriteLine($"{Enemigo.Nombre} tiene esta cantidad de vida");
+        Console.WriteLine($"{Hero.Nombre} tiene {Hero.ValorVida} de vida ");
+        Console.WriteLine($"{Enemigo.Nombre} tiene {Enemigo.ValorVida} de vida");
     }
 
-    public void EstadoBatalla()
+    public void SaberGanador()
     {
         if (Heroes.Count == 0)
         {
-            Console.WriteLine("Los villanos los han derrotado chaval");
+            Console.WriteLine("Todos los heroes han sido derrotados, los villanos ganan");
         }
         else if (Enemigos.Count == 0)
         {
-            Console.WriteLine("Los heroes han derrotado a los villanos");
+            Console.WriteLine("Los heroes han derrotado a los villanos exitosamente");
         }
-
-        else
-        {
-            Console.WriteLine("Ninguno de los 2 ha sido derrotado, la batalla sigue!!");
-            Console.WriteLine($"{Hero.Nombre} tiene esta cantidad de vida ");
-            Console.WriteLine($"{Enemigo.Nombre} tiene esta cantidad de vida");
-        }
-
     }
 
     private void EnemigosAtacan()
@@ -78,32 +71,24 @@ public class Encuentro
         int indiceHeroe = 0;
         while (indiceEnemigo < Enemigos.Count)
         {
-            if (indiceEnemigo <= Heroes.Count)
-            {
-                Enemigos[indiceEnemigo].Atacar(Heroes[indiceHeroe]);
-                Console.WriteLine($"{Enemigos[indiceEnemigo].Nombre} ataca a {Heroes[indiceHeroe].Nombre}");
-                if (Enemigos[indiceEnemigo].ValorVida <= 0)
-                {
-                    Enemigos.Remove(Enemigos[indiceEnemigo]);
-                }
-            }
-            else
+            if (indiceEnemigo > Heroes.Count)
             {
                 indiceHeroe = 0;
-                Enemigos[indiceEnemigo].Atacar(Heroes[indiceHeroe]);
-                Console.WriteLine($"{Enemigos[indiceEnemigo].Nombre} ataca a {Heroes[indiceHeroe].Nombre}");
-                if (Enemigos[indiceEnemigo].ValorVida <= 0)
-                {
-                    Enemigos.Remove(Enemigos[indiceEnemigo]);
-                }
             }
 
+            Enemigos[indiceEnemigo].Atacar(Heroes[indiceHeroe]);
+            Console.WriteLine($"{Enemigos[indiceEnemigo].Nombre} ataca a {Heroes[indiceHeroe].Nombre}");
+            if (Heroes[indiceHeroe].ValorVida <= 0)
+            {
+                Console.WriteLine($"El heroe {Heroes[indiceHeroe].Nombre} ha sido derrotado");
+                Heroes.Remove(Heroes[indiceHeroe]);
+                
+            }
 
             indiceEnemigo += 1;
             indiceHeroe += 1;
         }
-    
-
+        
     }
 
     private void HeroesAtacan()
@@ -112,29 +97,19 @@ public class Encuentro
         int indiceHeroe = 0;
         while (indiceHeroe < Heroes.Count)
         {
-            if (indiceHeroe <= Enemigos.Count)
-            {
-                Heroes[indiceHeroe].Atacar(Enemigos[indiceEnemigo]);
-                Console.WriteLine($"{Heroes[indiceHeroe].Nombre} ataca a {Enemigos[indiceEnemigo].Nombre}");
-                if (Heroes[indiceHeroe].ValorVida <= 0)
-                {
-                    Heroes.Remove(Heroes[indiceHeroe]);
-                }
-            }
-            else
+            if (indiceHeroe > Enemigos.Count)
             {
                 indiceEnemigo = 0;
-                Heroes[indiceHeroe].Atacar(Enemigos[indiceEnemigo]);
-                Console.WriteLine($"{Heroes[indiceHeroe].Nombre} ataca a {Enemigos[indiceEnemigo].Nombre}");
-                if (Heroes[indiceHeroe].ValorVida <= 0)
-                {
-                    Heroes.Remove(Heroes[indiceHeroe]);
-                }
             }
-
+            Heroes[indiceHeroe].Atacar(Enemigos[indiceEnemigo]);
+            Console.WriteLine($"{Heroes[indiceHeroe].Nombre} ataca a {Enemigos[indiceEnemigo].Nombre}");
+            if (Enemigos[indiceEnemigo].ValorVida <= 0)
+            {
+                Console.WriteLine($"El enemigo {Enemigos[indiceEnemigo].Nombre} ha sido derrotado");
+                Enemigos.Remove(Enemigos[indiceEnemigo]);
+            }
             indiceEnemigo += 1;
             indiceHeroe += 1;
         }
     }
 }
-
