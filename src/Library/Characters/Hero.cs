@@ -21,5 +21,10 @@ public class Hero: PersonajeBase
             PuntosVictoriaAcumulados += enemigo.PV;
             enemigo.PV = 0;
         }
+
+        if (PuntosVictoriaAcumulados >= 5)
+        {
+            ValorVida = ValorVidaInicial;
+        }
     }
 }

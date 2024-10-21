@@ -51,7 +51,7 @@ public class Encuentro
                 Console.ReadLine();
             }
            turnoActual=CambiarTurno();
-
+           
             MostrarEstado();
             Console.WriteLine("Presiona cualquier tecla para continuar con la siguiente ronda");
             Console.ReadLine();
@@ -60,14 +60,14 @@ public class Encuentro
         SaberGanador();
     }
 
-    public void MostrarEstado() 
+    public void MostrarEstado()
     {
-        Console.WriteLine($"Los heroes {Heroes.Count} restantes tienen este valor de vida:");
+        Console.WriteLine($"Los héroes {Heroes.Count} restantes tienen este valor de vida:");
         foreach (var heroe in Heroes)
         {
             Console.WriteLine($" {heroe.Nombre} : {heroe.ValorVida}");
         }
-        
+
         Console.WriteLine($"Los enemigos {Enemigos.Count} restantes tienen este valor de vida:");
         foreach (var enemigo in Enemigos)
         {
@@ -87,66 +87,50 @@ public class Encuentro
         }
     }
 
-    private void EnemigosAtacan()
+    public void EnemigosAtacan()
     {
-        int indiceEnemigo = 0;
-        int indiceHeroe = 0;
-        while (indiceEnemigo < Enemigos.Count && Heroes.Count > 0)
+        int cantidadHeroes = Heroes.Count;
+        for (int i = 0; i < Enemigos.Count; i++)
         {
-            if (indiceHeroe >= Heroes.Count)
+            if (Heroes.Count == 0) break; // No hay más héroes a los cuales atacar
+
+            int indiceHeroe = i % cantidadHeroes; // Distribución cíclica
+            var enemigo = Enemigos[i];
+            var objetivo = Heroes[indiceHeroe];
+
+            Console.WriteLine($"{enemigo.Nombre} ataca a {objetivo.Nombre}");
+            enemigo.Atacar(objetivo);
+
+            if (objetivo.ValorVida <= 0)
             {
-                indiceHeroe = 0; // Reiniciar el índice de héroes si se supera la cantidad disponible
+                Console.WriteLine($"El héroe {objetivo.Nombre} ha sido derrotado.");
+                Heroes.RemoveAt(indiceHeroe);
+                cantidadHeroes--; // Actualizar la cantidad de héroes
             }
-
-            Enemigos[indiceEnemigo].Atacar(Heroes[indiceHeroe]);
-            Console.WriteLine($"{Enemigos[indiceEnemigo].Nombre} ataca a {Heroes[indiceHeroe].Nombre}");
-
-            if (Heroes[indiceHeroe].ValorVida <= 0)
-            {
-                Console.WriteLine($"El héroe {Heroes[indiceHeroe].Nombre} ha sido derrotado");
-                Heroes.RemoveAt(indiceHeroe); // Remover al héroe de la lista
-            }
-            else
-            {
-                indiceHeroe++; // Solo incrementar si el héroe no ha sido eliminado
-            }
-
-            indiceEnemigo++; // El enemigo siempre avanza al siguiente turno
-        }
-    }
-
-    
-    private void HeroesAtacan()
-    {
-        int indiceHeroe = 0; // Índice para recorrer la lista de héroes
-        int indiceEnemigo = 0; // Índice para recorrer la lista de enemigos
-
-        while (indiceHeroe < Heroes.Count && Enemigos.Count > 0)
-        {
-            if (indiceEnemigo >= Enemigos.Count)
-            {
-                indiceEnemigo = 0; // Reiniciar el índice de enemigos si se supera la cantidad disponible
-            }
-
-            // El héroe ataca al enemigo
-            Heroes[indiceHeroe].Atacar(Enemigos[indiceEnemigo]);
-            Console.WriteLine($"{Heroes[indiceHeroe].Nombre} ataca a {Enemigos[indiceEnemigo].Nombre}");
-
-            // Verificar si el enemigo ha sido derrotado
-            if (Enemigos[indiceEnemigo].ValorVida <= 0)
-            {
-                Console.WriteLine($"El enemigo {Enemigos[indiceEnemigo].Nombre} ha sido derrotado");
-                Enemigos.RemoveAt(indiceEnemigo); // Remover al enemigo de la lista
-            }
-            else
-            {
-                indiceEnemigo++; // Solo incrementar si el enemigo no ha sido eliminado
-            }
-
-            indiceHeroe++; // El héroe siempre avanza al siguiente turno
         }
     }
 
 
+    public void HeroesAtacan()
+    {
+        int cantidadEnemigos = Enemigos.Count;
+        for (int i = 0; i < Heroes.Count; i++)
+        {
+            if (Enemigos.Count == 0) break; // No hay más enemigos a los cuales atacar
+
+            foreach (var enemigo in Enemigos.ToList()) // Crear una copia de la lista para iterar
+            {
+                Console.WriteLine($"{Heroes[i].Nombre} ataca a {enemigo.Nombre}");
+                Heroes[i].Atacar(enemigo);
+
+                if (enemigo.ValorVida <= 0)
+                {
+                    Console.WriteLine($"El enemigo {enemigo.Nombre} ha sido derrotado.");
+                    Enemigos.Remove(enemigo); // Remover al enemigo de la lista original
+                }
+            }
+        }
+    }
+        
 }
 

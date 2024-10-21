@@ -158,6 +158,99 @@ namespace Library.Tests
             Assert.That(orc.ValorVida, Is.LessThan(80));
             Assert.That(orc.ValorVida, Is.EqualTo(45)); // 80 - 35 (ataque del elfo) = 45
         }
+        
+        [Test]
+        public void EnemigosAtacanCorrectamente()
+        {
+            // Configuración del encuentro
+            var heroe1 = new Elfo("Elfo 1", 100, 20);
+            var heroe2 = new Enano("Enano 1", 100, 25);
+            var enemigo1 = new Enemigo("Orco 1", 50, 15, 1);
+            var enemigo2 = new Enemigo("Orco 2", 50, 15, 1);
 
+            List<Hero> heroes = new List<Hero> { heroe1, heroe2 };
+            List<Enemigo> enemigos = new List<Enemigo> { enemigo1, enemigo2 };
+
+            var encuentro = new Encuentro(heroes, enemigos);
+            
+            // Ejecución de un turno de ataque de los enemigos
+            encuentro.EnemigosAtacan();
+
+            // Verificación: Cada enemigo debe haber atacado al héroe correspondiente
+            Assert.That(heroe1.ValorVida, Is.LessThan(100));
+            Assert.That(heroe2.ValorVida, Is.LessThan(100));
+        }
+
+        [Test]
+        public void HeroesAtacanCorrectamente()
+        {
+            // Configuración del encuentro
+            var heroe1 = new Mago("Mago 1", 100, 30, new SpellBook("Hechizos"));
+            var enemigo1 = new Enemigo("Orco 1", 60, 15, 5);
+            var enemigo2 = new Enemigo("Orco 2", 60, 15, 5);
+
+            List<Hero> heroes = new List<Hero> { heroe1 };
+            List<Enemigo> enemigos = new List<Enemigo> { enemigo1, enemigo2 };
+
+            var encuentro = new Encuentro(heroes, enemigos);
+            
+            // Ejecución de un turno de ataque de los héroes
+            encuentro.HeroesAtacan();
+
+            // Verificación: Los enemigos deben haber recibido daño
+            Assert.That(enemigo1.ValorVida, Is.LessThan(60));
+            Assert.That(enemigo2.ValorVida, Is.LessThan(60));
+        }
+
+        [Test]
+        public void HeroeSeCuraCuandoAcumulaCincoVP()
+        {
+            // Configuración del encuentro
+            var heroe1 = new Enano("Enano 1", 100, 40);
+            var enemigo1 = new Enemigo("Orco 1", 10, 5, 3); // Otorga 3 VP
+            var enemigo2 = new Enemigo("Orco 2", 10, 5, 3); // Otorga 3 VP
+
+            List<Hero> heroes = new List<Hero> { heroe1 };
+            List<Enemigo> enemigos = new List<Enemigo> { enemigo1, enemigo2 };
+
+            var encuentro = new Encuentro(heroes, enemigos);
+
+            // Hacer que el héroe reciba daño primero para probar curación
+            enemigo1.Atacar(heroe1);
+            Assert.That(heroe1.ValorVida, Is.LessThan(100)); // Verificar que recibió daño
+
+            // Ejecutar la primera ronda de ataques de héroes
+            encuentro.HeroesAtacan();
+
+            // Verificar que el héroe se haya curado
+            Assert.That(heroe1.ValorVida, Is.EqualTo(100)); // Verifica la curación
+        }
+
+        [Test]
+        public void EnemigosRotanAtaquesEntreHeroes()
+        {
+            // Configuración del encuentro
+            var heroe1 = new Elfo("Elfo 1", 100, 20);
+            var heroe2 = new Enano("Enano 1", 100, 25);
+            var heroe3 = new Mago("Mago 1", 100, 30, new SpellBook("Hechizos"));
+            var enemigo1 = new Enemigo("Orco 1", 50, 15, 1);
+            var enemigo2 = new Enemigo("Orco 2", 50, 15, 1);
+            var enemigo3 = new Enemigo("Orco 3", 50, 15, 1);
+            var enemigo4 = new Enemigo("Orco 4", 50, 15, 1);
+
+            List<Hero> heroes = new List<Hero> { heroe1, heroe2, heroe3 };
+            List<Enemigo> enemigos = new List<Enemigo> { enemigo1, enemigo2, enemigo3, enemigo4 };
+
+            var encuentro = new Encuentro(heroes, enemigos);
+            
+            // Ejecución de un turno de ataque de los enemigos
+            encuentro.EnemigosAtacan();
+
+            // Verificación: Cada héroe debe haber recibido al menos un ataque (se rotan los ataques)
+            Assert.That(heroe1.ValorVida, Is.LessThan(100));
+            Assert.That(heroe2.ValorVida, Is.LessThan(100));
+            Assert.That(heroe3.ValorVida, Is.LessThan(100));
+        }
     }
 }
+
