@@ -10,6 +10,7 @@ public abstract class PersonajeBase: IChar
     
     public abstract int PV { get; set; }
 
+    public string Tipo { get; set; }
     public PersonajeBase(string nombre, int valorVida, int valorAtaque)
     {
         Nombre = nombre;

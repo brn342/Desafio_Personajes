@@ -37,23 +37,30 @@ public class Encuentro
 
         while (Heroes.Count > 0 && Enemigos.Count > 0)
         {
+            
             if (turnoActual == "turnoEnemigo")
             {
                 EnemigosAtacan();
-                CambiarTurno();
+                Console.WriteLine("Los enemigos han finalizado su ataque, pulse cualquier tecla para continuar");
+                Console.ReadLine();
             }
             else
             {
                 HeroesAtacan();
-                CambiarTurno();
+                Console.WriteLine("Los Heroes han finalizado su ataque, pulse cualquier tecla para continuar");
+                Console.ReadLine();
             }
+           turnoActual=CambiarTurno();
 
             MostrarEstado();
+            Console.WriteLine("Presiona cualquier tecla para continuar con la siguiente ronda");
+            Console.ReadLine();
         }
+       
         SaberGanador();
     }
 
-    public void MostrarEstado()
+    public void MostrarEstado() 
     {
         Console.WriteLine($"Los heroes {Heroes.Count} restantes tienen este valor de vida:");
         foreach (var heroe in Heroes)
@@ -84,50 +91,62 @@ public class Encuentro
     {
         int indiceEnemigo = 0;
         int indiceHeroe = 0;
-        while (indiceEnemigo < Enemigos.Count)
+        while (indiceEnemigo < Enemigos.Count && Heroes.Count > 0)
         {
-            if (indiceEnemigo > Heroes.Count)
+            if (indiceHeroe >= Heroes.Count)
             {
-                indiceHeroe = 0;
+                indiceHeroe = 0; // Reiniciar el índice de héroes si se supera la cantidad disponible
             }
 
             Enemigos[indiceEnemigo].Atacar(Heroes[indiceHeroe]);
             Console.WriteLine($"{Enemigos[indiceEnemigo].Nombre} ataca a {Heroes[indiceHeroe].Nombre}");
+
             if (Heroes[indiceHeroe].ValorVida <= 0)
             {
-                Console.WriteLine($"El heroe {Heroes[indiceHeroe].Nombre} ha sido derrotado");
-                Heroes.Remove(Heroes[indiceHeroe]);
-                indiceHeroe -= 1;
+                Console.WriteLine($"El héroe {Heroes[indiceHeroe].Nombre} ha sido derrotado");
+                Heroes.RemoveAt(indiceHeroe); // Remover al héroe de la lista
+            }
+            else
+            {
+                indiceHeroe++; // Solo incrementar si el héroe no ha sido eliminado
             }
 
-            indiceEnemigo += 1;
-            indiceHeroe += 1;
+            indiceEnemigo++; // El enemigo siempre avanza al siguiente turno
         }
-        
     }
+
+    
     private void HeroesAtacan()
     {
-        int indiceEnemigo = 0;
-        int indiceHeroe = 0;
-        while (indiceHeroe < Heroes.Count)
+        int indiceHeroe = 0; // Índice para recorrer la lista de héroes
+        int indiceEnemigo = 0; // Índice para recorrer la lista de enemigos
+
+        while (indiceHeroe < Heroes.Count && Enemigos.Count > 0)
         {
-            if (indiceHeroe > Enemigos.Count)
+            if (indiceEnemigo >= Enemigos.Count)
             {
-                indiceEnemigo = 0;
+                indiceEnemigo = 0; // Reiniciar el índice de enemigos si se supera la cantidad disponible
             }
+
+            // El héroe ataca al enemigo
             Heroes[indiceHeroe].Atacar(Enemigos[indiceEnemigo]);
             Console.WriteLine($"{Heroes[indiceHeroe].Nombre} ataca a {Enemigos[indiceEnemigo].Nombre}");
+
+            // Verificar si el enemigo ha sido derrotado
             if (Enemigos[indiceEnemigo].ValorVida <= 0)
             {
                 Console.WriteLine($"El enemigo {Enemigos[indiceEnemigo].Nombre} ha sido derrotado");
-                Enemigos.Remove(Enemigos[indiceEnemigo]);
-                indiceEnemigo -= 1;
-                
+                Enemigos.RemoveAt(indiceEnemigo); // Remover al enemigo de la lista
             }
-            indiceEnemigo += 1;
-            indiceHeroe += 1;
-            
+            else
+            {
+                indiceEnemigo++; // Solo incrementar si el enemigo no ha sido eliminado
+            }
+
+            indiceHeroe++; // El héroe siempre avanza al siguiente turno
         }
     }
+
+
 }
 
